@@ -17,6 +17,14 @@
         <nav role="navigation">
           <ul class="nav nav-pills pull-right">
             <li><a href="http://www.phoenixframework.org/docs">Get Started</a></li>
+            <li>
+              <%= if @conn.assigns[:user] do %>
+                Hello, <%= @conn.assigns.user.netid %> <br />
+                <%= link "Sign out", to: auth_path(@conn, :delete), class: "button alert" %>
+              <% else %>
+                <%= link "Sign in", to: auth_path(@conn, :request, "cas"), class: "button" %>
+              <% end %>
+            </li>
           </ul>
         </nav>
         <span class="logo"></span>

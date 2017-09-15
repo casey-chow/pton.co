@@ -47,6 +47,7 @@ defmodule Pton.Mixfile do
       {:ueberauth, "~> 0.4"},
       {:ueberauth_cas, "~> 1.0.0"},
       {:apex, "~>1.0.0"},
+      {:ex_machina, "~> 2.0", only: :test},
     ]
   end
 

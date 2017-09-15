@@ -7,6 +7,7 @@ defmodule PtonWeb.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug Pton.Plugs.SetUser
   end
 
   pipeline :api do
@@ -16,6 +17,7 @@ defmodule PtonWeb.Router do
   scope "/auth", PtonWeb do
     pipe_through :browser
     
+    get "/signout", AuthController, :delete
     get "/:provider", AuthController, :request
     get "/:provider/callback", AuthController, :new
   end
