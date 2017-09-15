@@ -3,7 +3,7 @@ defmodule Pton.Plugs.SetUser do
   import Phoenix.Controller
 
   alias Pton.Repo
-  alias Pton.User
+  alias Pton.Accounts.User
 
   def init(_params) do
   end

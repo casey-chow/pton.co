@@ -2,8 +2,8 @@ defmodule PtonWeb.AuthController do
   use PtonWeb, :controller
   plug Ueberauth
 
-  alias Pton.User
   alias Pton.Repo
+  alias Pton.Accounts.User
 
   def new(%{assigns: %{ueberauth_auth: auth}} = conn, _params) do
     user_params = %{

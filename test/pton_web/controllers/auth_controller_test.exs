@@ -1,7 +1,8 @@
 defmodule PtonWeb.AuthControllerTest do
   use PtonWeb.ConnCase
+  
   alias Pton.Repo
-  alias Pton.User
+  alias Pton.Accounts.User
 
   # mock response from CAS
   # TODO(casey-chow): verify format of response

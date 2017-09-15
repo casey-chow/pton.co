@@ -1,8 +1,8 @@
-defmodule Pton.User do
+defmodule Pton.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
-  alias Pton.User
-
+  
+  alias Pton.Accounts.User
 
   schema "users" do
     field :netid, :string
