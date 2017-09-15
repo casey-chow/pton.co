@@ -20,6 +20,7 @@ defmodule Pton.Mixfile do
   def application do
     [
       mod: {Pton.Application, []},
+      # applications: [:ueberauth_cas],
       extra_applications: [:logger, :runtime_tools]
     ]
   end
@@ -43,6 +44,9 @@ defmodule Pton.Mixfile do
       {:cowboy, "~> 1.0"},
       {:mix_test_watch, "~> 0.3", only: :dev, runtime: false},
       {:ex_unit_notifier, "~> 0.1", only: :test},
+      {:ueberauth, "~> 0.4"},
+      {:ueberauth_cas, "~> 1.0.0"},
+      {:apex, "~>1.0.0"},
     ]
   end
 

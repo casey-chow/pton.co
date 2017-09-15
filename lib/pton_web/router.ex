@@ -13,6 +13,13 @@ defmodule PtonWeb.Router do
     plug :accepts, ["json"]
   end
 
+  scope "/auth", PtonWeb do
+    pipe_through :browser
+    
+    get "/:provider", AuthController, :request
+    get "/:provider/callback", AuthController, :new
+  end
+
   scope "/", PtonWeb do
     pipe_through :browser # Use the default browser stack
 
