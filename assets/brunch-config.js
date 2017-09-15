@@ -46,10 +46,17 @@ exports.config = {
   plugins: {
     babel: {
       // Do not use ES6 compiler in vendor code
-      ignore: [/vendor/]
+      ignore: [/web\/static\/vendor/]
+    },
+    sass: {
+      options: {
+        includePaths: [
+          'node_modules/foundation-sites/scss',
+        ]
+      }
     }
   },
-
+  
   modules: {
     autoRequire: {
       "js/app.js": ["js/app"]
@@ -57,6 +64,10 @@ exports.config = {
   },
 
   npm: {
-    enabled: true
+    enabled: true,
+    globals: {
+      $: 'jquery',
+      jQuery: 'jquery',
+    }
   }
 };
