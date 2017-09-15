@@ -10,6 +10,8 @@ defmodule Pton.Accounts.User do
     field :token, :string
 
     timestamps()
+
+    many_to_many :links, Pton.Redirection.Link, join_through: "users_links"
   end
 
   @doc false
