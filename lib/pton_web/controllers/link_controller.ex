@@ -32,6 +32,11 @@ defmodule PtonWeb.LinkController do
     render(conn, "show.html", link: link)
   end
 
+  def follow(conn, %{"slug" => slug}) do
+    link = Redirection.get_link_by! slug: slug
+    redirect conn, external: link.url
+  end
+
   def edit(conn, %{"id" => id}) do
     link = Redirection.get_link!(id)
     changeset = Redirection.change_link(link)

@@ -16,7 +16,7 @@ defmodule PtonWeb.Router do
 
   scope "/auth", PtonWeb do
     pipe_through :browser
-    
+
     get "/signout", AuthController, :delete
     get "/:provider", AuthController, :request
     get "/:provider/callback", AuthController, :new
@@ -27,6 +27,7 @@ defmodule PtonWeb.Router do
 
     get "/", PageController, :index
     resources "/links", LinkController
+    get "/:slug", LinkController, :follow
   end
 
   # Other scopes may use custom stacks.

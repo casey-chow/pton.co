@@ -41,6 +41,24 @@ defmodule Pton.Redirection do
   end
 
   @doc """
+  Gets a single link.
+
+  Raises `Ecto.NoResultsError` if the Link does not exist.
+
+  ## Examples
+
+      iex> get_link!(123)
+      %Link{}
+
+      iex> get_link!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_link_by!(clauses) do
+    Repo.get_by!(Link, clauses) |> Repo.preload(:owners)
+  end
+
+  @doc """
   Creates a link.
 
   ## Examples

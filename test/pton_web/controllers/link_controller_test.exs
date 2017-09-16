@@ -79,6 +79,15 @@ defmodule PtonWeb.LinkControllerTest do
     end
   end
 
+  describe "follow link" do
+    setup [:create_user, :create_link]
+
+    test "redirects to destination", %{conn: conn, link: link} do
+      conn = get conn, link_path(conn, :follow, link.slug)
+      assert redirected_to(conn) == link.url
+    end
+  end
+
   describe "update link" do
     setup [:create_user, :create_link]
 
