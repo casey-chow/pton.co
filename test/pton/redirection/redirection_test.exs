@@ -6,8 +6,8 @@ defmodule Pton.RedirectionTest do
   describe "links" do
     alias Pton.Redirection.Link
 
-    @valid_attrs %{slug: "some slug", url: "some url"}
-    @update_attrs %{slug: "some updated slug", url: "some updated url"}
+    @valid_attrs %{slug: "some_slug", url: "some url"}
+    @update_attrs %{slug: "some_updated_slug", url: "some updated url"}
     @invalid_attrs %{slug: nil, url: nil}
 
     setup [:create_user]
@@ -29,7 +29,7 @@ defmodule Pton.RedirectionTest do
 
     test "create_link/1 with valid data creates a link", %{user: user} do
       assert {:ok, %Link{} = link} = Redirection.create_link(user, @valid_attrs)
-      assert link.slug == "some slug"
+      assert link.slug == "some_slug"
       assert link.url == "some url"
     end
 
@@ -37,11 +37,16 @@ defmodule Pton.RedirectionTest do
       assert {:error, %Ecto.Changeset{}} = Redirection.create_link(user, @invalid_attrs)
     end
 
+    test "create_link/1 with duplicate data returns error changeset", %{user: user} do
+      assert {:ok, %Link{}} = Redirection.create_link(user, %{@valid_attrs | slug: "a-slug"})
+      assert {:error, %Ecto.Changeset{}} = Redirection.create_link(user, %{@valid_attrs | slug: "a-slug"})
+    end
+
     test "update_link/2 with valid data updates the link" do
       link = insert(:link)
       assert {:ok, link} = Redirection.update_link(link, @update_attrs)
       assert %Link{} = link
-      assert link.slug == "some updated slug"
+      assert link.slug == "some_updated_slug"
       assert link.url == "some updated url"
     end
 

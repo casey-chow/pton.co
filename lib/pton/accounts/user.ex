@@ -1,7 +1,7 @@
 defmodule Pton.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
-  
+
   alias Pton.Accounts.User
 
   schema "users" do
@@ -21,5 +21,6 @@ defmodule Pton.Accounts.User do
     user
     |> cast(attrs, [:netid, :provider, :token])
     |> validate_required([:netid, :provider, :token])
+    |> unique_constraint(:netid)
   end
 end
