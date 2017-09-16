@@ -15,7 +15,7 @@ defmodule PtonWeb.LinkController do
   end
 
   def create(conn, %{"link" => link_params}) do
-    case Redirection.create_link(link_params) do
+    case Redirection.create_link(conn.assigns.user, link_params) do
       {:ok, link} ->
         conn
         |> put_flash(:info, "Link created successfully.")

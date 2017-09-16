@@ -20,8 +20,11 @@ defmodule Pton.Mixfile do
   def application do
     [
       mod: {Pton.Application, []},
-      # applications: [:ueberauth_cas],
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [
+        :ueberauth_cas,
+        :logger,
+        :runtime_tools,
+      ]
     ]
   end
 

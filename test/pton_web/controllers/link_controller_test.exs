@@ -3,6 +3,7 @@ defmodule PtonWeb.LinkControllerTest do
 
   alias Pton.Redirection
   alias Pton.Accounts
+  alias Pton.Repo
 
   @create_attrs %{slug: "some slug", url: "some url"}
   @update_attrs %{slug: "some updated slug", url: "some updated url"}
@@ -23,8 +24,12 @@ defmodule PtonWeb.LinkControllerTest do
   end
 
   describe "create link" do
-    test "redirects to show when data is valid", %{conn: conn} do
-      conn = post conn, link_path(conn, :create), link: @create_attrs
+    setup [:create_user]
+
+    test "redirects to show when data is valid", %{conn: conn, user: user} do
+      conn = conn
+      |> assign(:user, user)
+      |> post(link_path(conn, :create), link: @create_attrs)
 
       assert %{id: id} = redirected_params(conn)
       assert redirected_to(conn) == link_path(conn, :show, id)
@@ -33,8 +38,25 @@ defmodule PtonWeb.LinkControllerTest do
       assert html_response(conn, 200) =~ "Show Link"
     end
 
-    test "renders errors when data is invalid", %{conn: conn} do
-      conn = post conn, link_path(conn, :create), link: @invalid_attrs
+    test "includes current user as owner on creation", %{conn: conn, user: user} do
+      conn =  conn
+      |> assign(:user, user)
+      |> post(link_path(conn, :create), link: @create_attrs)
+
+      %{id: id} = redirected_params(conn)
+
+      link = Redirection.get_link!(id)
+      users = Repo.all(Ecto.assoc(link, :owners))
+
+      assert length(users) == 1
+      assert Enum.fetch!(users, 0) == user
+    end
+
+    test "renders errors when data is invalid", %{conn: conn, user: user} do
+      conn = conn
+      |> assign(:user, user)
+      |> post(link_path(conn, :create), link: @invalid_attrs)
+
       assert html_response(conn, 200) =~ "New Link"
     end
   end
@@ -83,6 +105,11 @@ defmodule PtonWeb.LinkControllerTest do
       assert length(Accounts.list_users()) == 6
       assert length(Redirection.list_links()) == 5
     end
+  end
+
+  defp create_user(_) do
+    user = insert(:user)
+    {:ok, user: user}
   end
 
   defp create_link(_) do

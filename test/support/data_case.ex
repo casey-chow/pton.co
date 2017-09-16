@@ -22,6 +22,7 @@ defmodule Pton.DataCase do
       import Ecto.Changeset
       import Ecto.Query
       import Pton.DataCase
+      import Pton.Factory
     end
   end
 

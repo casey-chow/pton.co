@@ -86,7 +86,7 @@ defmodule Pton.Accounts do
 
   """
   def delete_user(%User{} = user) do
-    from(ul in UserUser, where: ul.user_id == ^user.id) |> Repo.delete_all()
+    from(ul in User, where: ul.user_id == ^user.id) |> Repo.delete_all
 
     Repo.delete(user)
   end

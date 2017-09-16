@@ -4,6 +4,7 @@ defmodule Pton.Redirection do
   """
 
   import Ecto.Query, warn: false
+  import Ecto.Changeset
 
   alias Pton.Repo
   alias Pton.Redirection.Link
@@ -18,7 +19,7 @@ defmodule Pton.Redirection do
 
   """
   def list_links do
-    Repo.all(Link)
+    Repo.all(Link) |> Repo.preload(:owners)
   end
 
   @doc """
@@ -35,24 +36,39 @@ defmodule Pton.Redirection do
       ** (Ecto.NoResultsError)
 
   """
-  def get_link!(id), do: Repo.get!(Link, id)
+  def get_link!(id) do
+    Repo.get!(Link, id) |> Repo.preload(:owners)
+  end
 
   @doc """
   Creates a link.
 
   ## Examples
 
-      iex> create_link(%{field: value})
+      iex> create_link(user, %{field: value})
       {:ok, %Link{}}
 
-      iex> create_link(%{field: bad_value})
+      iex> create_link(user, %{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_link(attrs \\ %{}) do
-    %Link{}
+  def create_link(user, attrs \\ %{}) do
+    maybe_link = %Link{}
     |> Link.changeset(attrs)
     |> Repo.insert()
+
+    case maybe_link do
+      {:ok, link} ->
+        link
+        |> Repo.preload(:owners)
+        |> change()
+        |> put_assoc(:owners, [user])
+        |> Repo.update()
+
+        {:ok, link}
+
+      _ -> maybe_link
+    end
   end
 
   @doc """
