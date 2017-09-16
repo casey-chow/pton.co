@@ -14,14 +14,17 @@ defmodule Pton.RedirectionTest do
 
     test "list_links/0 returns all links" do
       link = insert(:link)
-      assert Redirection.list_links() == [link]
+      links = Redirection.list_links()
+
+      assert length(links) == 1
+      assert Enum.fetch!(links, 0).id == link.id
     end
 
     test "get_link!/1 returns the link with given id" do
       link = insert(:link)
       retrieved_link = Redirection.get_link!(link.id) |> Repo.preload(:owners)
 
-      assert retrieved_link == link
+      assert retrieved_link.id == link.id
     end
 
     test "create_link/1 with valid data creates a link", %{user: user} do
@@ -45,7 +48,10 @@ defmodule Pton.RedirectionTest do
     test "update_link/2 with invalid data returns error changeset" do
       link = insert(:link)
       assert {:error, %Ecto.Changeset{}} = Redirection.update_link(link, @invalid_attrs)
-      assert link == Redirection.get_link!(link.id)
+      new_link = Redirection.get_link!(link.id)
+
+      assert new_link.slug == link.slug
+      assert new_link.url == link.url
     end
 
     test "delete_link/1 deletes the link" do

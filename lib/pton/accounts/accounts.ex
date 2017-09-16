@@ -18,7 +18,7 @@ defmodule Pton.Accounts do
 
   """
   def list_users do
-    Repo.all(User)
+    Repo.all(User) |> Repo.preload(:links)
   end
 
   @doc """
@@ -86,8 +86,6 @@ defmodule Pton.Accounts do
 
   """
   def delete_user(%User{} = user) do
-    from(ul in User, where: ul.user_id == ^user.id) |> Repo.delete_all
-
     Repo.delete(user)
   end
 

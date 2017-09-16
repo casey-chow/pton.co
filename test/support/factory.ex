@@ -6,6 +6,7 @@ defmodule Pton.Factory do
       token: sequence("token"),
       netid: sequence("batman"),
       provider: "cas",
+      links: [],
     }
   end
 

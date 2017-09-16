@@ -55,7 +55,7 @@ defmodule PtonWeb.LinkControllerTest do
       users = Repo.all(Ecto.assoc(link, :owners))
 
       assert length(users) == 1
-      assert Enum.fetch!(users, 0) == user
+      assert Enum.fetch!(users, 0).id == user.id
     end
 
     test "renders errors when data is invalid", %{conn: conn, user: user} do
@@ -84,7 +84,7 @@ defmodule PtonWeb.LinkControllerTest do
 
     test "redirects when data is valid", %{conn: conn, link: link, user: user} do
       conn = conn
-      |> assign(:user, user) 
+      |> assign(:user, user)
       |> put(link_path(conn, :update, link), link: @update_attrs)
 
       assert redirected_to(conn) == link_path(conn, :show, link)
