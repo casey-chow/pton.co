@@ -10,7 +10,9 @@ defmodule Pton.Redirection.Link do
 
     timestamps()
 
-    many_to_many :owners, Pton.Accounts.User, join_through: "users_links"
+    many_to_many :owners, Pton.Accounts.User,
+      join_through: "users_links",
+      on_delete: :delete_all
   end
 
   @doc false
