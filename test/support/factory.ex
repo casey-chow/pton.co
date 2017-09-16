@@ -3,9 +3,17 @@ defmodule Pton.Factory do
 
   def user_factory do
     %Pton.Accounts.User{
-      token: "ffnebyt73bich9",
-      netid: "batman",
+      token: sequence("token"),
+      netid: sequence("batman"),
       provider: "cas",
+    }
+  end
+
+  def link_factory do
+    %Pton.Redirection.Link{
+      slug: sequence("slug"),
+      url: sequence(:url, &"http://batcave.com/#{&1}"),
+      owners: [build(:user)],
     }
   end
 end

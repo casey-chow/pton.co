@@ -2,15 +2,11 @@ defmodule PtonWeb.LinkControllerTest do
   use PtonWeb.ConnCase
 
   alias Pton.Redirection
+  alias Pton.Accounts
 
   @create_attrs %{slug: "some slug", url: "some url"}
   @update_attrs %{slug: "some updated slug", url: "some updated url"}
   @invalid_attrs %{slug: nil, url: nil}
-
-  def fixture(:link) do
-    {:ok, link} = Redirection.create_link(@create_attrs)
-    link
-  end
 
   describe "index" do
     test "lists all links", %{conn: conn} do
@@ -79,10 +75,18 @@ defmodule PtonWeb.LinkControllerTest do
         get conn, link_path(conn, :show, link)
       end
     end
+
+    test "deletes only the corresponding link", %{conn: conn, link: link} do
+      insert_list(5, :link)
+      _conn = delete conn, link_path(conn, :delete, link)
+
+      assert length(Accounts.list_users()) == 6
+      assert length(Redirection.list_links()) == 5
+    end
   end
 
   defp create_link(_) do
-    link = fixture(:link)
+    link = insert(:link)
     {:ok, link: link}
   end
 end
