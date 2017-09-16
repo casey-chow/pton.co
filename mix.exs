@@ -52,6 +52,7 @@ defmodule Pton.Mixfile do
       {:apex, "~>1.0.0", only: :dev},
       {:ex_machina, "~> 2.0", only: :test},
       {:inch_ex, only: :docs},
+      {:excoveralls, "~> 0.5.7", only: :test},
     ]
   end
 
