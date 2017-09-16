@@ -1,6 +1,8 @@
 defmodule PtonWeb.LinkController do
   use PtonWeb, :controller
 
+  plug :authenticate when action in [:new, :create, :edit, :update, :delete]
+
   alias Pton.Redirection
   alias Pton.Redirection.Link
 
@@ -57,4 +59,16 @@ defmodule PtonWeb.LinkController do
     |> put_flash(:info, "Link deleted successfully.")
     |> redirect(to: link_path(conn, :index))
   end
+
+  def authenticate(conn, _params) do
+    if conn.assigns.user do
+      conn
+    else
+      conn
+      |> put_flash(:error, "You must be logged in to do that.")
+      |> redirect(to: auth_path(conn, :request, "cas"))
+      |> halt()
+    end
+  end
+
 end
