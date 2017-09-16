@@ -1,8 +1,8 @@
 defmodule Pton.Redirection.Link do
   use Ecto.Schema
   import Ecto.Changeset
-  alias Pton.Redirection.Link
 
+  alias Pton.Redirection.Link
 
   schema "links" do
     field :slug, :string

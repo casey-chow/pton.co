@@ -4,8 +4,8 @@ defmodule Pton.Redirection do
   """
 
   import Ecto.Query, warn: false
-  alias Pton.Repo
 
+  alias Pton.Repo
   alias Pton.Redirection.Link
 
   @doc """
