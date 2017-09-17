@@ -44,6 +44,25 @@ defmodule PtonWeb.LinkControllerTest do
       assert html_response(conn, 200) =~ "Show Link"
     end
 
+    test "does not create link without url", %{conn: conn, user: user} do
+      conn
+      |> assign(:user, user)
+      |> post(link_path(conn, :create), link: Map.delete(@create_attrs, :url))
+
+      assert length(Redirection.list_links) == 0
+    end
+
+    test "creates a random slug when no slug exists", %{conn: conn, user: user} do
+      conn = conn
+      |> assign(:user, user)
+      |> post(link_path(conn, :create), link: Map.delete(@create_attrs, :slug))
+
+      %{id: id} = redirected_params(conn)
+
+      link = Redirection.get_link!(id)
+      assert not(is_nil(link.slug))
+    end
+
     test "includes current user as owner on creation", %{conn: conn, user: user} do
       conn =  conn
       |> assign(:user, user)

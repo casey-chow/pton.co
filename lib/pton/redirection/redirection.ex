@@ -8,6 +8,7 @@ defmodule Pton.Redirection do
 
   alias Pton.Repo
   alias Pton.Redirection.Link
+  alias Pton.Redirection.Random
 
   @doc """
   Returns the list of links.
@@ -71,6 +72,10 @@ defmodule Pton.Redirection do
 
   """
   def create_link(user, attrs \\ %{}) do
+    if is_nil(Map.get(attrs, "slug")) or String.trim(Map.get(attrs, "slug")) == "" do
+      attrs = Map.put(attrs, "slug", Random.string(13))
+    end
+
     maybe_link = %Link{}
     |> Link.changeset(attrs)
     |> Repo.insert()

@@ -6,9 +6,9 @@ defmodule Pton.RedirectionTest do
   describe "links" do
     alias Pton.Redirection.Link
 
-    @valid_attrs %{slug: "some_slug", url: "some url"}
-    @update_attrs %{slug: "some_updated_slug", url: "some updated url"}
-    @invalid_attrs %{slug: nil, url: nil}
+    @valid_attrs %{"slug" => "some_slug", "url" => "some url"}
+    @update_attrs %{"slug" => "some_updated_slug", "url" => "some updated url"}
+    @invalid_attrs %{"slug" => nil, "url" => nil}
 
     setup [:create_user]
 
@@ -38,8 +38,8 @@ defmodule Pton.RedirectionTest do
     end
 
     test "create_link/1 with duplicate data returns error changeset", %{user: user} do
-      assert {:ok, %Link{}} = Redirection.create_link(user, %{@valid_attrs | slug: "a-slug"})
-      assert {:error, %Ecto.Changeset{}} = Redirection.create_link(user, %{@valid_attrs | slug: "a-slug"})
+      assert {:ok, %Link{}} = Redirection.create_link(user, @valid_attrs)
+      assert {:error, %Ecto.Changeset{}} = Redirection.create_link(user, @valid_attrs)
     end
 
     test "update_link/2 with valid data updates the link" do

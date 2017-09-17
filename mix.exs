@@ -50,7 +50,7 @@ defmodule Pton.Mixfile do
       {:ex_unit_notifier, "~> 0.1", only: :test},
       {:ueberauth, "~> 0.4"},
       {:ueberauth_cas, "~> 1.0.0"},
-      {:apex, "~>1.0.0", only: :dev},
+      {:apex, "~>1.0.0", only: [:dev, :test]},
       {:ex_machina, "~> 2.0", only: :test},
       {:inch_ex, only: :docs},
       {:excoveralls, "~> 0.5.7", only: :test},

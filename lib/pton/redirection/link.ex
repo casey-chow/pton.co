@@ -19,7 +19,7 @@ defmodule Pton.Redirection.Link do
   def changeset(%Link{} = link, attrs) do
     link
     |> cast(attrs, [:slug, :url])
-    |> validate_required([:slug, :url])
+    |> validate_required([:url])
     |> unique_constraint(:slug)
   end
 end
