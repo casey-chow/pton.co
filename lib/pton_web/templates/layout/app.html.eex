@@ -12,26 +12,46 @@
   </head>
 
   <body>
+    <header class="top-bar">
+      <div class="top-bar-left">
+        <ul class="dropdown menu" data-dropdown-menu>
+          <li class="menu-text">pton.co</li>
+          <li><%= link "Home", to: "/" %></li>
+          <li><%= link "All Links", to: link_path(@conn, :index) %></li>
+        </ul>
+      </div>
+      <div class="top-bar-right">
+        <ul class="dropdown menu" data-dropdown-menu>
+          <li>
+            <%= if @conn.assigns[:user] do %>
+              <%= link @conn.assigns.user.netid, to: "#" %>
+              <ul class="menu vertical">
+                <li>
+                  <%= link "Sign out", to: auth_path(@conn, :delete) %>
+                </li>
+              </ul>
+            <% else %>
+              <%= link "Sign in", to: auth_path(@conn, :request, "cas") %>
+            <% end %>
+          </li>
+        </ul>
+      </div>
+    </header>
     <div class="container">
-      <header class="header">
-        <nav role="navigation">
-          <ul class="nav nav-pills pull-right">
-            <li><a href="http://www.phoenixframework.org/docs">Get Started</a></li>
-            <li>
-              <%= if @conn.assigns[:user] do %>
-                Hello, <%= @conn.assigns.user.netid %> <br />
-                <%= link "Sign out", to: auth_path(@conn, :delete), class: "button alert" %>
-              <% else %>
-                <%= link "Sign in", to: auth_path(@conn, :request, "cas"), class: "button" %>
-              <% end %>
-            </li>
-          </ul>
-        </nav>
-        <span class="logo"></span>
-      </header>
+      <%# https://medium.com/elixir-magic/writing-a-blog-engine-in-phoenix-and-elixir-part-11-better-ui-f17f3d7efa85 %>
+      <div class="row alerts">
+        <%= if flash = get_flash(@conn, :info) do %>
+        <div class="success callout alert-info" role="alert">
+          <%= flash %>
+        </div>
+        <% end %>
 
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+        <%= if flash = get_flash(@conn, :error) do %>
+        <div class="alert callout alert-error" role="alert">
+          <%= flash %>
+        </div>
+        <% end %>
+      </div>
 
       <main role="main">
         <%= render @view_module, @view_template, assigns %>
