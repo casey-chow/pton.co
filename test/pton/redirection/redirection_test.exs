@@ -27,17 +27,17 @@ defmodule Pton.RedirectionTest do
       assert retrieved_link.id == link.id
     end
 
-    test "create_link/1 with valid data creates a link", %{user: user} do
+    test "create_link/2 with valid data creates a link", %{user: user} do
       assert {:ok, %Link{} = link} = Redirection.create_link(user, @valid_attrs)
       assert link.slug == "some_slug"
       assert link.url == "http://google.com/"
     end
 
-    test "create_link/1 with invalid data returns error changeset", %{user: user} do
+    test "create_link/2 with invalid data returns error changeset", %{user: user} do
       assert {:error, %Ecto.Changeset{}} = Redirection.create_link(user, @invalid_attrs)
     end
 
-    test "create_link/1 with duplicate data returns error changeset", %{user: user} do
+    test "create_link/2 with duplicate data returns error changeset", %{user: user} do
       assert {:ok, %Link{}} = Redirection.create_link(user, @valid_attrs)
       assert {:error, %Ecto.Changeset{}} = Redirection.create_link(user, @valid_attrs)
     end
@@ -50,7 +50,7 @@ defmodule Pton.RedirectionTest do
       assert link.url == "http://yahoo.com/"
     end
 
-    test "update_link/2 with invalid data returns error changeset" do
+    test "update_link/1 with invalid data returns error changeset" do
       link = insert(:link)
       assert {:error, %Ecto.Changeset{}} = Redirection.update_link(link, @invalid_attrs)
       new_link = Redirection.get_link!(link.id)

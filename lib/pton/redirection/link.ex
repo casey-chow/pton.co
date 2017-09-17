@@ -37,12 +37,12 @@ defmodule Pton.Redirection.Link do
 
   # http://blog.danielberkompas.com/elixir/2015/05/20/useful-ecto-validators.html
   def validate_url(changeset, field, options \\ []) do
-  validate_change changeset, field, fn _, url ->
-    case url |> String.to_char_list |> :http_uri.parse do
-      {:ok, _} -> []
-      {:error, msg} -> [{field, options[:message] || "invalid url: #{inspect msg}"}]
+    validate_change changeset, field, fn _, url ->
+      case url |> String.to_char_list |> :http_uri.parse do
+        {:ok, _} -> []
+        {:error, msg} -> [{field, options[:message] || "invalid url: #{inspect msg}"}]
+      end
     end
   end
-end
 
 end

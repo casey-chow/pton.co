@@ -7,6 +7,7 @@ defmodule Pton.Redirection do
   import Ecto.Changeset
 
   alias Pton.Repo
+  alias Pton.Accounts.User
   alias Pton.Redirection.Link
   alias Pton.Redirection.Random
 
@@ -119,10 +120,10 @@ defmodule Pton.Redirection do
 
   ## Examples
 
-      iex> delete_link(link)
+      iex> delete_link(user, link)
       {:ok, %Link{}}
 
-      iex> delete_link(link)
+      iex> delete_link(user, link)
       {:error, %Ecto.Changeset{}}
 
   """
@@ -141,5 +142,14 @@ defmodule Pton.Redirection do
   """
   def change_link(%Link{} = link) do
     Link.changeset(link, %{})
+  end
+
+  @doc """
+  Utility function, returns whether a user owns the link.
+  """
+  def is_owner?(%User{} = user, %Link{} = link) do
+    not is_nil(user)
+    and not is_nil(link)
+    and Enum.any? link.owners, fn(owner) -> owner.id == user.id end
   end
 end

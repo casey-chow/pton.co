@@ -87,7 +87,7 @@ defmodule PtonWeb.LinkControllerTest do
   end
 
   describe "edit link" do
-    setup [:create_user, :create_link]
+    setup [:create_link_with_owner]
 
     test "renders form for editing chosen link", %{conn: conn, user: user, link: link} do
       conn =  conn
@@ -99,7 +99,7 @@ defmodule PtonWeb.LinkControllerTest do
   end
 
   describe "follow link" do
-    setup [:create_user, :create_link]
+    setup [:create_link]
 
     test "redirects to destination", %{conn: conn, link: link} do
       conn = get conn, link_path(conn, :follow, link.slug)
@@ -108,7 +108,7 @@ defmodule PtonWeb.LinkControllerTest do
   end
 
   describe "update link" do
-    setup [:create_user, :create_link]
+    setup [:create_link_with_owner]
 
     test "redirects when data is valid", %{conn: conn, link: link, user: user} do
       conn = conn
@@ -128,10 +128,21 @@ defmodule PtonWeb.LinkControllerTest do
 
       assert html_response(conn, 200) =~ "Edit Link"
     end
+
+    test "validates that the user is an owner before updating", %{conn: conn, link: link, user: user} do
+      other_user = insert(:user)
+      assert other_user.id != user.id
+
+      conn = conn
+      |> assign(:user, other_user)
+      |> put(link_path(conn, :update, link), link: @update_attrs)
+
+      assert get_flash(conn, :error) =~ "not authorized"
+    end
   end
 
   describe "delete link" do
-    setup [:create_user, :create_link]
+    setup [:create_link_with_owner]
 
     test "deletes chosen link", %{conn: conn, link: link, user: user} do
       conn = conn
@@ -157,6 +168,19 @@ defmodule PtonWeb.LinkControllerTest do
       assert length(Accounts.list_users()) == num_users
       assert length(Redirection.list_links()) == 2
     end
+
+    test "validates that the user is an owner before deleting", %{conn: conn, link: link, user: user} do
+      num_links = length(Redirection.list_links())
+      other_user = insert(:user)
+      assert other_user.id != user.id
+
+      conn = conn
+      |> assign(:user, other_user)
+      |> delete(link_path(conn, :delete, link))
+
+      assert get_flash(conn, :error) =~ "not authorized"
+      assert length(Redirection.list_links()) == num_links
+    end
   end
 
   defp create_user(_) do
@@ -168,4 +192,11 @@ defmodule PtonWeb.LinkControllerTest do
     link = insert(:link)
     {:ok, link: link}
   end
+
+  defp create_link_with_owner(_) do
+    user = insert(:user)
+    link = insert(:link, owners: [user])
+    {:ok, user: user, link: link}
+  end
+
 end

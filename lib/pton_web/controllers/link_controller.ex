@@ -2,6 +2,7 @@ defmodule PtonWeb.LinkController do
   use PtonWeb, :controller
 
   plug :authenticate when action in [:new, :create, :edit, :update, :delete]
+  plug :check_owner when action in [:edit, :update, :delete]
 
   alias Pton.Redirection
   alias Pton.Redirection.Link
@@ -33,7 +34,7 @@ defmodule PtonWeb.LinkController do
   end
 
   def follow(conn, %{"slug" => slug}) do
-    link = Redirection.get_link_by! slug: slug
+    link = Redirection.get_link_by!(slug: slug)
     redirect conn, external: link.url
   end
 
@@ -65,7 +66,7 @@ defmodule PtonWeb.LinkController do
     |> redirect(to: link_path(conn, :index))
   end
 
-  def authenticate(conn, _params) do
+  def authenticate(conn, _) do
     if conn.assigns.user do
       conn
     else
@@ -76,4 +77,18 @@ defmodule PtonWeb.LinkController do
     end
   end
 
+  def check_owner(conn, _) do
+    id = conn.params["id"]
+    link = Redirection.get_link! id
+
+    if Redirection.is_owner?(conn.assigns.user, link) do
+      conn
+    else
+      conn
+      |> put_status(403)
+      |> put_flash(:error, "You are not authorized to modify this link.")
+      |> render("show.html", link: link)
+      |> halt()
+    end
+  end
 end
