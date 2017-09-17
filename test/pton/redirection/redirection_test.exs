@@ -6,9 +6,9 @@ defmodule Pton.RedirectionTest do
   describe "links" do
     alias Pton.Redirection.Link
 
-    @valid_attrs %{"slug" => "some_slug", "url" => "some url"}
-    @update_attrs %{"slug" => "some_updated_slug", "url" => "some updated url"}
-    @invalid_attrs %{"slug" => nil, "url" => nil}
+    @valid_attrs %{"slug" => "some_slug", "url" => "http://google.com/"}
+    @update_attrs %{"slug" => "some_updated_slug", "url" => "http://yahoo.com/"}
+    @invalid_attrs %{"slug" => "invalidslug!!!", "url" => "asldifhwoie"}
 
     setup [:create_user]
 
@@ -30,7 +30,7 @@ defmodule Pton.RedirectionTest do
     test "create_link/1 with valid data creates a link", %{user: user} do
       assert {:ok, %Link{} = link} = Redirection.create_link(user, @valid_attrs)
       assert link.slug == "some_slug"
-      assert link.url == "some url"
+      assert link.url == "http://google.com/"
     end
 
     test "create_link/1 with invalid data returns error changeset", %{user: user} do
@@ -47,7 +47,7 @@ defmodule Pton.RedirectionTest do
       assert {:ok, link} = Redirection.update_link(link, @update_attrs)
       assert %Link{} = link
       assert link.slug == "some_updated_slug"
-      assert link.url == "some updated url"
+      assert link.url == "http://yahoo.com/"
     end
 
     test "update_link/2 with invalid data returns error changeset" do

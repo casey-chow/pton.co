@@ -5,8 +5,8 @@ defmodule PtonWeb.LinkControllerTest do
   alias Pton.Accounts
   alias Pton.Repo
 
-  @create_attrs %{slug: "some slug", url: "some url"}
-  @update_attrs %{slug: "some updated slug", url: "some updated url"}
+  @create_attrs %{slug: "some-slug", url: "http://google.com"}
+  @update_attrs %{slug: "some-updated-slug", url: "http://yahoo.com"}
   @invalid_attrs %{slug: nil, url: nil}
 
   describe "index" do
@@ -118,7 +118,7 @@ defmodule PtonWeb.LinkControllerTest do
       assert redirected_to(conn) == link_path(conn, :show, link)
 
       conn = get conn, link_path(conn, :show, link)
-      assert html_response(conn, 200) =~ "some updated slug"
+      assert html_response(conn, 200) =~ "some-updated-slug"
     end
 
     test "renders errors when data is invalid", %{conn: conn, link: link, user: user} do

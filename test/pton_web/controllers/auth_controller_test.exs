@@ -16,7 +16,7 @@ defmodule PtonWeb.AuthControllerTest do
   end
 
   test "creates user from CAS", %{conn: conn} do
-    conn = conn
+    conn
     |> assign(:ueberauth_auth, @ueberauth_auth)
     |> get("/auth/cas/callback")
 

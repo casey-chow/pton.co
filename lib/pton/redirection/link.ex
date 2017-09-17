@@ -20,6 +20,32 @@ defmodule Pton.Redirection.Link do
     link
     |> cast(attrs, [:slug, :url])
     |> validate_required([:url])
+    |> validate_url(:url)
+    |> validate_slug_format
     |> unique_constraint(:slug)
   end
+
+  defp validate_slug_format(changeset) do
+    slug = get_field(changeset, :slug)
+    validate_slug_format(changeset, slug)
+  end
+
+  defp validate_slug_format(changeset, slug) do
+    if slug != nil and not Regex.match?(~r/^[A-Za-z0-9\_\-\+]+$/, slug) do
+      add_error(changeset, :slug, "should be only alphanumeric characters, underscore (_), dash (-) or plus (+)")
+    else
+      changeset
+    end
+  end
+
+  # http://blog.danielberkompas.com/elixir/2015/05/20/useful-ecto-validators.html
+  def validate_url(changeset, field, options \\ []) do
+  validate_change changeset, field, fn _, url ->
+    case url |> String.to_char_list |> :http_uri.parse do
+      {:ok, _} -> []
+      {:error, msg} -> [{field, options[:message] || "invalid url: #{inspect msg}"}]
+    end
+  end
+end
+
 end
