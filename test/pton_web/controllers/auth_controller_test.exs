@@ -1,6 +1,6 @@
 defmodule PtonWeb.AuthControllerTest do
   use PtonWeb.ConnCase
-  
+
   alias Pton.Repo
   alias Pton.Accounts.User
 
@@ -22,7 +22,6 @@ defmodule PtonWeb.AuthControllerTest do
 
     users = User |> Repo.all
     assert Enum.count(users) == 1
-    assert get_flash(conn, :info) == "Thank you for signing in!"
   end
 
   test "signs out user", %{conn: conn} do
@@ -32,7 +31,7 @@ defmodule PtonWeb.AuthControllerTest do
     |> assign(:user, user)
     |> get("/auth/signout")
     |> get("/")
-    
+
     assert conn.assigns.user == nil
   end
 end
