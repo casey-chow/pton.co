@@ -1,2 +1,12 @@
 $icon-font-path: "/fonts/";
-@import "bootstrap";
+@import "bootstrap-custom";
+
+body {
+  padding-top: 70px;
+}
+
+.pton-main-navigation .navbar-nav {
+  @media (min-width: 768px) {
+    margin-right: 0;
+  }
+}
