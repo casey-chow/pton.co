@@ -12,6 +12,15 @@
     <%= @link.url %>
   </li>
 
+  <li>
+    <strong>Owners:</strong>
+    <ul>
+    <%= for owner <- @link.owners do %>
+    	<li><%= owner.netid %></li>
+    <% end %>
+	</ul>
+  </li>
+
 </ul>
 
 <span><%= link "Edit", to: link_path(@conn, :edit, @link) %></span>
