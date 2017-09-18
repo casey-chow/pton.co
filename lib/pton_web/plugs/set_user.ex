@@ -1,6 +1,5 @@
 defmodule Pton.Plugs.SetUser do
   import Plug.Conn
-  import Phoenix.Controller
 
   alias Pton.Repo
   alias Pton.Accounts.User
