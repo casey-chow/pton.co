@@ -48,15 +48,16 @@ exports.config = {
       // Do not use ES6 compiler in vendor code
       ignore: [/web\/static\/vendor/]
     },
+    copycat: {
+      "fonts": ["node_modules/bootstrap-sass/assets/fonts/bootstrap"],
+    },
     sass: {
       options: {
-        includePaths: [
-          'node_modules/foundation-sites/scss',
-        ]
+        includePaths: ["node_modules/bootstrap-sass/assets/stylesheets"]
       }
     }
   },
-  
+
   modules: {
     autoRequire: {
       "js/app.js": ["js/app"]
@@ -68,6 +69,7 @@ exports.config = {
     globals: {
       $: 'jquery',
       jQuery: 'jquery',
+      bootstrap: 'bootstrap-sass',
     }
   }
 };
