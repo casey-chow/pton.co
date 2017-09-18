@@ -10,10 +10,6 @@ defmodule PtonWeb.Router do
     plug Pton.Plugs.SetUser
   end
 
-  pipeline :api do
-    plug :accepts, ["json"]
-  end
-
   scope "/auth", PtonWeb do
     pipe_through :browser
 
