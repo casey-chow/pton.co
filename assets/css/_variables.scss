@@ -8,33 +8,36 @@ $bootstrap-sass-asset-helper: false !default;
 //
 //## Gray and brand colors for use across Bootstrap.
 
+$pton-orange:           #FF9909;
+$pton-white:            #FFF;
+$pton-slate:            #454545;
+
 $gray-base:              #000 !default;
-$gray-darker:            lighten($gray-base, 13.5%) !default; // #222
-$gray-dark:              #7b8a8b !default;   // #333
-$gray:                   #95a5a6 !default; // #555
-$gray-light:             #b4bcc2 !default;   // #999
-$gray-lighter:           #ecf0f1 !default; // #eee
+$gray-darker:            lighten($gray-base, 13.5%) !default;
+$gray-dark:              #7b8a8b !default;
+$gray:                   #95a5a6 !default;
+$gray-light:             #b4bcc2 !default;
+$gray-lighter:           #ecf0f1 !default;
 
-$brand-primary:         #2C3E50 !default;
-$brand-success:         #18BC9C !default;
+$brand-primary:         $pton-slate;
+$brand-success:         #0D9132;
 $brand-info:            #3498DB !default;
-$brand-warning:         #F39C12 !default;
+$brand-warning:         #FF6305;
 $brand-danger:          #E74C3C !default;
-
 
 //== Scaffolding
 //
 //## Settings for some of the most global styles.
 
 //** Background color for `<body>`.
-$body-bg:               #fff !default;
+$body-bg:               $pton-orange;
 //** Global text color on `<body>`.
-$text-color:            $brand-primary !default;
+$text-color:            $pton-white;
 
 //** Global textual link color.
-$link-color:            $brand-success !default;
+$link-color:            $pton-white;
 //** Link hover color set via `darken()` function.
-$link-hover-color:      $link-color !default;
+$link-hover-color:      $link-color;
 //** Link hover decoration.
 $link-hover-decoration: underline !default;
 
@@ -103,9 +106,9 @@ $padding-xs-horizontal:     5px !default;
 $line-height-large:         1.3333333 !default; // extra decimals for Win 8.1 Chrome
 $line-height-small:         1.5 !default;
 
-$border-radius-base:        4px !default;
+$border-radius-base:        3px !default;
 $border-radius-large:       6px !default;
-$border-radius-small:       3px !default;
+$border-radius-small:       2px !default;
 
 //** Global color for active items (e.g., navs or dropdowns).
 $component-active-color:    #fff !default;
@@ -146,7 +149,7 @@ $table-border-color:            $gray-lighter !default;
 $btn-font-weight:                normal !default;
 
 $btn-default-color:              #fff !default;
-$btn-default-bg:                 $gray !default;
+$btn-default-bg:                 $pton-slate;
 $btn-default-border:             $btn-default-bg !default;
 
 $btn-primary-color:              $btn-default-color !default;
@@ -187,9 +190,9 @@ $input-bg:                       #fff !default;
 $input-bg-disabled:              $gray-lighter !default;
 
 //** Text color for `<input>`s
-$input-color:                    $text-color !default;
+$input-color:                    $pton-slate;
 //** `<input>` border color
-$input-border:                   #dce4ec !default;
+$input-border:                   $pton-white;
 
 // TODO: Rename `$input-border-radius` to `$input-border-radius-base` in v4
 //** Default `.form-control` border radius
@@ -201,7 +204,7 @@ $input-border-radius-large:      $border-radius-large !default;
 $input-border-radius-small:      $border-radius-small !default;
 
 //** Border color for inputs on focus
-$input-border-focus:             $brand-primary !default;
+$input-border-focus:             $pton-white;
 
 //** Placeholder text color
 $input-color-placeholder:        #acb6c0 !default;
@@ -366,13 +369,13 @@ $navbar-padding-vertical:          (($navbar-height - $line-height-computed) / 2
 $navbar-collapse-max-height:       340px !default;
 
 $navbar-default-color:             #fff !default;
-$navbar-default-bg:                $brand-primary !default;
+$navbar-default-bg:                $pton-slate !default;
 $navbar-default-border:            transparent !default;
 
 // Navbar links
-$navbar-default-link-color:                #fff !default;
-$navbar-default-link-hover-color:          $brand-success !default;
-$navbar-default-link-hover-bg:             transparent !default;
+$navbar-default-link-color:                #fff;
+$navbar-default-link-hover-color:          #fff;
+$navbar-default-link-hover-bg:             lighten($pton-slate, 5%);
 $navbar-default-link-active-color:         #fff !default;
 $navbar-default-link-active-bg:            darken($navbar-default-bg, 10%) !default;
 $navbar-default-link-disabled-color:       #ccc !default;
@@ -849,7 +852,7 @@ $pre-scrollable-max-height:   340px !default;
 //** Horizontal offset for forms and lists.
 $component-offset-horizontal: 180px !default;
 //** Text muted color
-$text-muted:                  $gray-light !default;
+$text-muted:                  $gray-dark !default;
 //** Abbreviations and acronyms border color
 $abbr-border-color:           $gray-light !default;
 //** Headings small color

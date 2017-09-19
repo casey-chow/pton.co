@@ -4,9 +4,11 @@
     <%= error_tag f, :url %>
   </div>
 
-  <div class="form-group form-inline">
-    <%= label f, :slug, "pton.co/", class: "control-label" %>
-    <%= text_input f, :slug, class: "form-control input-sm", placeholder: "name-your-link (optional)" %>
+  <div class="form-group">
+    <div class="input-group">
+      <span class="input-group-addon" id="link-slug">pton.co/</span>
+      <%= text_input f, :slug, class: "form-control", id: "link-slug", placeholder: "name-your-link (optional)" %>
+    </div>
     <%= error_tag f, :slug %>
   </div>
 

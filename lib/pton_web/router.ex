@@ -22,7 +22,9 @@ defmodule PtonWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
-    get "/kitchen-sink", PageController, :kitchen_sink
+    if Mix.env == :dev do
+      get "/kitchen-sink", PageController, :kitchen_sink
+    end
 
     resources "/links", LinkController
     get "/:slug", LinkController, :follow
