@@ -15,19 +15,8 @@
   <%= render "_navigation.html", conn: @conn %>
 
   <div class="container">
-    <%# https://medium.com/elixir-magic/writing-a-blog-engine-in-phoenix-and-elixir-part-11-better-ui-f17f3d7efa85 %>
     <div class="row alerts">
-      <%= if flash = get_flash(@conn, :info) do %>
-      <div class="success callout alert-info" role="alert">
-        <%= flash %>
-      </div>
-      <% end %>
-
-      <%= if flash = get_flash(@conn, :error) do %>
-      <div class="alert callout alert-error" role="alert">
-        <%= flash %>
-      </div>
-      <% end %>
+      <%= render "_alerts.html", conn: @conn %>
     </div>
 
     <main role="main">

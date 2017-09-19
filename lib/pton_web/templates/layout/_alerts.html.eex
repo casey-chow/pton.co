@@ -1,0 +1,18 @@
+<%# https://medium.com/elixir-magic/writing-a-blog-engine-in-phoenix-and-elixir-part-11-better-ui-f17f3d7efa85 %>
+<%= if flash = get_flash(@conn, :info) do %>
+<div class="alert alert-info" role="alert">
+  <%= flash %>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<% end %>
+
+<%= if flash = get_flash(@conn, :error) do %>
+<div class="alert alert-error" role="alert">
+  <%= flash %>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<% end %>
