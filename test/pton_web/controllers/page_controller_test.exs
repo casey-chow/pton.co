@@ -1,11 +1,6 @@
 defmodule PtonWeb.PageControllerTest do
   use PtonWeb.ConnCase, async: true
 
-  test "GET /", %{conn: conn} do
-    conn = get conn, "/"
-    assert html_response(conn, 200) =~ "pton.co"
-  end
-
   test "shows a sign in link when not signed in", %{conn: conn} do
     conn = get conn, "/"
 

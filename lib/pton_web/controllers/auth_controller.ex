@@ -21,10 +21,10 @@ defmodule PtonWeb.AuthController do
       {:ok, user} ->
         conn
         |> put_session(:user_id, user.id)
-        |> redirect(to: page_path(conn, :index))
+        |> redirect(to: link_path(conn, :index))
       {:error, _reason} ->
         conn
-        |> redirect(to: page_path(conn, :index))
+        |> redirect(to: link_path(conn, :index))
     end
   end
 
@@ -40,6 +40,6 @@ defmodule PtonWeb.AuthController do
   def delete(conn, _params) do
     conn
     |> configure_session(drop: true)
-    |> redirect(to: page_path(conn, :index))
+    |> redirect(to: link_path(conn, :index))
   end
 end

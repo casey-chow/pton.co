@@ -1,7 +1,7 @@
 defmodule PtonWeb.LinkController do
   use PtonWeb, :controller
 
-  plug :authenticate when action in [:new, :create, :edit, :update, :delete]
+  plug :authenticate when action in [:create, :edit, :update, :delete]
   plug :check_owner when action in [:edit, :update, :delete]
 
   alias Pton.Redirection
