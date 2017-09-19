@@ -1,5 +1,5 @@
-<div class="row align-center">
-  <div class="medium-8 columns">
+<div class="row">
+  <div class="col-md-8 col-md-push-2">
     <%= render "create_link_form.html", Map.put(assigns, :action, link_path(@conn, :create)) %>
   </div>
 </div>
