@@ -11,6 +11,7 @@ $bootstrap-sass-asset-helper: false !default;
 $pton-orange:           #FF9909;
 $pton-white:            #FFF;
 $pton-slate:            #454545;
+$pton-light-pink:       #FFD7D7;
 
 $gray-base:              #000 !default;
 $gray-darker:            lighten($gray-base, 13.5%) !default;
@@ -199,7 +200,7 @@ $input-border:                   $pton-white;
 // This has no effect on `<select>`s in some browsers, due to the limited stylability of `<select>`s in CSS.
 $input-border-radius:            $border-radius-base !default;
 //** Large `.form-control` border radius
-$input-border-radius-large:      $border-radius-large !default;
+$input-border-radius-large:      $border-radius-base !default;
 //** Small `.form-control` border radius
 $input-border-radius-small:      $border-radius-small !default;
 

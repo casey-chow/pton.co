@@ -29,7 +29,8 @@ defmodule Pton.Redirection.Link do
     slug = get_field(changeset, :slug)
 
     if slug != nil and not Regex.match?(~r/^[A-Za-z0-9\_\-\+]+$/, slug) do
-      add_error(changeset, :slug, "should be only alphanumeric characters, underscore (_), dash (-) or plus (+)")
+      add_error(changeset, :slug, "should be only contain letters, numbers," <>
+                                  "underscore (_), dash (-) or plus (+)")
     else
       changeset
     end

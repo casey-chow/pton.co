@@ -3,6 +3,9 @@ $icon-font-path: "/fonts/";
 @import "bootstrap-custom";
 @import "bootswatch";
 
+// Bootstrap Overrides
+// ============================================================
+
 body {
   padding-top: 70px;
 }
@@ -10,6 +13,31 @@ body {
 .navbar-nav > li > a {
   transition: background 0.2s ease-in-out;
 }
+
+.has-error {
+  .form-control, .form-control:focus {
+    border-color: $pton-light-pink;
+    background-color: $pton-light-pink;
+    box-shadow: none;
+  }
+
+  .help-block {
+    color: $pton-white;
+  }
+}
+
+// Helper Styles
+// ============================================================
+
+// https://stackoverflow.com/a/22196760
+.vertical-align {
+  align-items: center;
+  display: flex;
+  min-height: calc(100vh - 70px);
+}
+
+// Application Styles
+// ============================================================
 
 .pton-main-navigation {
   .navbar-nav {
@@ -21,3 +49,29 @@ body {
     height: 1em;
   }
 }
+
+.pton-create-form {
+  .inner {
+    padding-bottom: 10vh;
+  }
+
+  .title {
+    font-size: 11vw;
+    margin-bottom: 56px;
+    text-align: center;
+  }
+
+  .form-group {
+    margin-bottom: 36px;
+  }
+
+  .slug-form-group {
+    @include center-block();
+    width: 50%;
+  }
+
+  .submit-form-group .btn {
+    @include center-block();
+  }
+}
+

@@ -6,6 +6,17 @@ defmodule PtonWeb.ErrorHelpers do
   use Phoenix.HTML
 
   @doc """
+  Returns an error class if field has an error, otherwise nothing.
+  """
+  def error_class(form, field) do
+    if Keyword.has_key?(form.errors, field) do
+      "has-error"
+    else
+      ""
+    end
+  end
+
+  @doc """
   Generates tag for inlined form input errors.
   """
   def error_tag(form, field) do
