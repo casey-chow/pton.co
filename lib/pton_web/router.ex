@@ -21,7 +21,7 @@ defmodule PtonWeb.Router do
   scope "/", PtonWeb do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
+    get "/", LinkController, :new
     if Mix.env == :dev do
       get "/kitchen-sink", PageController, :kitchen_sink
     end
