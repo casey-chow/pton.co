@@ -22,6 +22,8 @@ defmodule PtonWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+    get "/kitchen-sink", PageController, :kitchen_sink
+
     resources "/links", LinkController
     get "/:slug", LinkController, :follow
   end

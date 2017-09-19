@@ -25,6 +25,5 @@
 
   </div> <!-- /container -->
   <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
-  <script>$(document).foundation();</script>
 </body>
 </html>
