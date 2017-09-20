@@ -12,6 +12,7 @@
 // If you no longer want to use a dependency, remember
 // to also remove its path from "config.paths.watched".
 import "phoenix_html"
+import Clipboard from "clipboard";
 
 // Import local files
 //
@@ -24,3 +25,31 @@ import "phoenix_html"
 $('.pton-show-slug').on("click", function () {
    $(this).select();
 });
+
+$(function () {
+	const clipboard = new Clipboard('.copy-link');
+
+	clipboard.on('success', function(e) {
+		$('.copy-link')
+		.removeClass('btn-default')
+		.addClass('btn-success');
+
+		setTimeout(() => {
+			$('.copy-link')
+			.removeClass('btn-success')
+			.addClass('btn-default');
+		}, 1000);
+	});
+
+	clipboard.on('error', function(e) {
+		$('.copy-link')
+		.removeClass('btn-default')
+		.addClass('btn-danger');
+
+		setTimeout(() => {
+			$('.copy-link')
+			.removeClass('btn-danger')
+			.addClass('btn-default');
+		}, 1000);
+	});
+})
