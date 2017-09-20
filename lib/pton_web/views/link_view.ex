@@ -9,4 +9,12 @@ defmodule PtonWeb.LinkView do
     |> Enum.map(&(&1.netid))
     |> enumerate_list
   end
+
+  def canonical_link_url(link) do
+    "pton.co/" <> link.slug
+  end
+
+  def canonical_link_url(:full, link) do
+    "https://pton.co/" <> link.slug
+  end
 end

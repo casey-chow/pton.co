@@ -1,34 +1,38 @@
-<h2>Listing Links</h2>
+<!-- List Links -->
+<div class="row">
+  <div class="col-md-8 col-md-push-2 pton-list">
+    <a href="<%= link_path(@conn, :new) %>" class="btn btn-default btn-sm pull-right pton-add-button">
+      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+    </a>
+    <h1 class="pton-title">All Links</h1>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Slug</th>
-      <th>Url</th>
-      <th>Owners</th>
-
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for link <- @links do %>
-    <tr>
-      <td><%= link.slug %></td>
-      <td><%= link.url %></td>
-      <td>
-        <%= for owner <- link.owners do %>
-          <%= owner.netid %>&nbsp;
-        <% end %>
-      </td>
-
-      <td class="text-right">
-        <span><%= link "Show", to: link_path(@conn, :show, link), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Edit", to: link_path(@conn, :edit, link), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Delete", to: link_path(@conn, :delete, link), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
-      </td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
-
-<span><%= link "New Link", to: link_path(@conn, :new) %></span>
+    <%= for link <- @links do %>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="meta-container">
+          <h2 class="link-slug">
+            <%= link canonical_link_url(link), to: link_path(@conn, :show, link) %>
+          </h2>
+          <h4 class="link-url">
+            <%= link link.url, to: link.url, rel: "nofollow" %>
+          </h4>
+        </div>
+        <div class="actions-container">
+          <div class="btn-group btn-group-sm pull-right">
+            <%= link "View", to: link_path(@conn, :show, link), class: "btn btn-primary" %>
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="caret"></span>
+              <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><%= link "Follow", to: link.url %></li>
+                <li><%= link "Edit", to: link_path(@conn, :edit, link) %></li>
+                <li><%= link "Delete", to: link_path(@conn, :delete, link), method: :delete, data: [confirm: "Are you sure?"] %></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>

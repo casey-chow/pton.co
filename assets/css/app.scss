@@ -30,6 +30,10 @@ body {
   }
 }
 
+.panel, .panel a:not(.btn) {
+  color: $pton-slate;
+}
+
 // Helper Styles
 // ============================================================
 
@@ -42,6 +46,10 @@ body {
 
 // Application Styles
 // ============================================================
+
+.pton-title {
+  font-size: 48px;
+}
 
 .pton-main-navigation {
   .navbar-nav {
@@ -61,7 +69,7 @@ body {
     padding-bottom: 10vh;
   }
 
-  .title {
+  .pton-title {
     font-size: 96px;
     margin-bottom: 56px;
     text-align: center;
@@ -120,10 +128,6 @@ body {
     padding-bottom: 15vh;
   }
 
-  .title {
-    font-size: 48px;
-  }
-
   .form-group {
     margin-top: 24px;
   }
@@ -140,5 +144,50 @@ body {
   .btn {
     padding-left: 30px;
     padding-right: 30px;
+  }
+}
+
+.pton-list {
+  .pton-title {
+    margin-bottom: 21px;
+  }
+
+  .pton-add-button {
+    margin-top: 12px;
+  }
+
+  .meta-container {
+    float: left;
+    max-width: calc(100% - 100px);
+  }
+
+  .actions-container {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    float: right;
+    justify-content: flex-end;
+    height: 65px;
+  }
+
+  .link-slug {
+    margin-top: 0;
+
+    a:hover {
+      text-decoration: none;
+    }
+  }
+
+  .link-url {
+    display: block;
+    margin-bottom: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+
+    a:hover {
+      text-decoration: none;
+    }
   }
 }

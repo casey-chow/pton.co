@@ -10,9 +10,12 @@ defmodule PtonWeb.LinkControllerTest do
   @invalid_attrs %{slug: nil, url: nil}
 
   describe "index" do
-    test "lists all links", %{conn: conn} do
+    setup [:create_link]
+
+    test "lists all links", %{conn: conn, link: link} do
       conn = get conn, link_path(conn, :index)
-      assert html_response(conn, 200) =~ "Listing Links"
+      assert html_response(conn, 200) =~ "All Links"
+      assert html_response(conn, 200) =~ link.slug
     end
   end
 

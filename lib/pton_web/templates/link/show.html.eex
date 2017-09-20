@@ -3,10 +3,10 @@
   <div class="col-md-8 col-md-push-2 vertical-align pton-show">
     <div class="inner">
       <input type="text" id="pton-show-slug" class="pton-show-slug form-control input-lg"
-        value="pton.co/<%= @link.slug %>" readonly/>
+        value="<%= canonical_link_url(@link) %>" readonly/>
 
       <div class="toolbar">
-        <button class="btn btn-default btn-lg copy-link" data-clipboard-target="#pton-show-slug">Copy Link</button>
+        <button class="btn btn-default btn-lg copy-link" data-clipboard-text="<%= canonical_link_url(:full, @link) %>">Copy Link</button>
         <%= if is_owner? @user, @link do %>
           <%= link "Edit Link", to: link_path(@conn, :edit, @link),
               class: "btn btn-default btn-lg follow-link", rel: "nofollow" %>
