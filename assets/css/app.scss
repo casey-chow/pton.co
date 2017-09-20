@@ -62,7 +62,7 @@ body {
   }
 
   .title {
-    font-size: 11vw;
+    font-size: 96px;
     margin-bottom: 56px;
     text-align: center;
   }
@@ -112,5 +112,33 @@ body {
     margin-top: 48px;
     max-width: 600px;
     text-align: center;
+  }
+}
+
+.pton-edit-form {
+  .inner {
+    padding-bottom: 15vh;
+  }
+
+  .title {
+    font-size: 48px;
+  }
+
+  .form-group {
+    margin-top: 24px;
+  }
+
+  .button-row {
+    margin-top: 36px;
+  }
+
+  .control-label {
+    font-size: 22px;
+    font-weight: normal;
+  }
+
+  .btn {
+    padding-left: 30px;
+    padding-right: 30px;
   }
 }

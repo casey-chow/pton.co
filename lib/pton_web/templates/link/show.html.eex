@@ -9,7 +9,7 @@
         <%= if is_owner? @user, @link do %>
           <%= link "Edit Link", to: link_path(@conn, :edit, @link),
               class: "btn btn-default btn-lg follow-link", rel: "nofollow" %>
-        <% end %>
+          <% end %>
         <%= link "Follow Link", to: @link.url,
             class: "btn btn-default btn-lg follow-link", rel: "nofollow" %>
       </div>

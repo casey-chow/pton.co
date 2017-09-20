@@ -21,7 +21,7 @@ defmodule PtonWeb.LinkController do
     case Redirection.create_link(conn.assigns.user, link_params) do
       {:ok, link} ->
         conn
-        |> put_flash(:info, "Link created successfully.")
+        |> put_flash(:success, "Link created successfully.")
         |> redirect(to: link_path(conn, :show, link))
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -50,7 +50,7 @@ defmodule PtonWeb.LinkController do
     case Redirection.update_link(link, link_params) do
       {:ok, link} ->
         conn
-        |> put_flash(:info, "Link updated successfully.")
+        |> put_flash(:success, "Link updated successfully.")
         |> redirect(to: link_path(conn, :show, link))
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", link: link, changeset: changeset)

@@ -1,5 +1,37 @@
-<h2>Edit Link</h2>
+<div class="row">
+  <div class="col-md-8 col-md-push-2 vertical-align pton-edit-form">
+    <div class="inner">
+      <h1 class="title">Edit Link</h1>
 
-<%= render "form.html", Map.put(assigns, :action, link_path(@conn, :update, @link)) %>
+      <%= form_for @changeset, link_path(@conn, :update, @link), fn f -> %>
+        <%= if @changeset.action do %>
+          <div class="alert alert-danger">
+            <p>Oops, something went wrong! Please check the errors below.</p>
+          </div>
+        <% end %>
 
-<span><%= link "Back", to: link_path(@conn, :index) %></span>
+        <div class="form-group url-form-group <%= error_class(f, :url) %>">
+          <%= label f, "Link Target", class: "control-label" %>
+          <%= url_input f, :url, class: "form-control pton-url-form-control input-lg",
+              pattern: "^[A-Za-z][A-Za-z\d.+-]*:\/*(?:\w+(?::\w+)?@)?[^\s/]+(?::\d+)?(?:\/[\w#!:.?+=&%@\-/]*)?$" %>
+          <%= error_tag f, :url %>
+        </div>
+
+        <div class="form-group slug-form-group <%= error_class(f, :slug) %>">
+          <%= label f, "Link URL", class: "control-label" %>
+          <div class="input-group">
+            <span class="input-group-addon" id="link-slug">pton.co/</span>
+            <%= text_input f, :slug, class: "form-control", id: "link-slug" %>
+          </div>
+          <%= error_tag f, :slug %>
+        </div>
+
+        <div class="form-group button-row">
+          <%= submit "Save", class: "btn btn-primary" %>
+          <%= link "Delete", to: link_path(@conn, :delete, @link), method: :delete,
+              data: [confirm: "Are you sure?"], class: "btn btn-danger pull-right" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
