@@ -20,7 +20,7 @@ defmodule Pton.Redirection.Link do
     link
     |> cast(attrs, [:slug, :url])
     |> validate_required([:url])
-    |> validate_url(:url)
+    |> validate_url(:url, message: "invalid url")
     |> validate_slug_format
     |> unique_constraint(:slug)
   end

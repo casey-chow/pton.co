@@ -9,12 +9,14 @@ defmodule PtonWeb.LinkController do
 
   def index(conn, _params) do
     links = Redirection.list_links()
-    render(conn, "index.html", links: links, hide_site_name: true)
+    render(conn, "index.html", links: links)
   end
 
   def new(conn, _params) do
     changeset = Redirection.change_link(%Link{})
-    render(conn, "new.html", changeset: changeset)
+    conn
+    |> assign(:hide_site_name, true)
+    |> render("new.html", changeset: changeset)
   end
 
   def create(conn, %{"link" => link_params}) do

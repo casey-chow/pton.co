@@ -8,7 +8,7 @@
     </button>
     <a class="navbar-brand" href="/">
       <img src="/images/logo.svg" alt="TigerLinks Logo">
-      <%= if not(Map.has_key?(@conn.assigns, :hide_site_name) and @conn.assigns[:hide_site_name]) do %>
+      <%= unless @conn.assigns[:hide_site_name] do %>
         TigerLinks
       <% end %>
     </a>
