@@ -1,10 +1,11 @@
 <!-- List Links -->
 <div class="row">
   <div class="col-md-8 col-md-push-2 pton-list">
-    <a href="<%= link_path(@conn, :new) %>" class="btn btn-default btn-sm pull-right pton-add-button">
-      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-    </a>
-    <h1 class="pton-title">All Links</h1>
+    <h1 class="pton-title">All Links
+      <a href="<%= link_path(@conn, :new) %>" class="btn btn-default btn-sm pull-right pton-add-button">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+      </a>
+    </h1>
 
     <%= for link <- @links do %>
     <div class="panel panel-default">

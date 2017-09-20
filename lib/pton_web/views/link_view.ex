@@ -1,7 +1,6 @@
 defmodule PtonWeb.LinkView do
   use PtonWeb, :view
 
-  import PtonWeb.Helpers
   import Pton.Redirection, only: [ is_owner?: 2 ]
 
   def list_owners(link) do
@@ -16,5 +15,12 @@ defmodule PtonWeb.LinkView do
 
   def canonical_link_url(:full, link) do
     "https://pton.co/" <> link.slug
+  end
+
+  def enumerate_list([a]),       do: a
+  def enumerate_list([a, b]),    do: a <> " and " <> b
+  def enumerate_list([a, b, c]), do: a <> ", " <> b <> ", and " <> c
+  def enumerate_list([head | tail]) when length(tail) > 2 do
+    head <> ", " <> enumerate_list(tail)
   end
 end
