@@ -25,6 +25,7 @@ defmodule Pton.Mixfile do
         :ueberauth_cas,
         :logger,
         :runtime_tools,
+        :timex,
       ]
     ]
   end
@@ -54,6 +55,7 @@ defmodule Pton.Mixfile do
       {:ex_machina, "~> 2.0", only: :test},
       {:inch_ex, only: :docs},
       {:excoveralls, "~> 0.5.7", only: :test},
+      {:timex, "~> 3.1"},
     ]
   end
 

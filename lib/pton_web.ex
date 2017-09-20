@@ -39,6 +39,7 @@ defmodule PtonWeb do
 
       import PtonWeb.Router.Helpers
       import PtonWeb.ErrorHelpers
+      import PtonWeb.Helpers
       import PtonWeb.Gettext
     end
   end

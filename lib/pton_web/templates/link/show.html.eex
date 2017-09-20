@@ -1,27 +1,30 @@
-<h2>Show Link</h2>
+<!-- Show Link -->
+<div class="row">
+  <div class="col-md-8 col-md-push-2 vertical-align pton-show">
+    <div class="inner">
+      <input type="text" class="pton-show-slug form-control input-lg" value="pton.co/<%= @link.slug %>" readonly/>
 
-<ul>
+      <div class="toolbar">
+        <button class="btn btn-default btn-lg copy-link">Copy Link</button>
+        <%= if is_owner? @user, @link do %>
+          <%= link "Edit Link", to: link_path(@conn, :edit, @link),
+              class: "btn btn-default btn-lg follow-link", rel: "nofollow" %>
+        <% end %>
+        <%= link "Follow Link", to: @link.url,
+            class: "btn btn-default btn-lg follow-link", rel: "nofollow" %>
+      </div>
 
-  <li>
-    <strong>Slug:</strong>
-    <%= @link.slug %>
-  </li>
-
-  <li>
-    <strong>Url:</strong>
-    <%= @link.url %>
-  </li>
-
-  <li>
-    <strong>Owners:</strong>
-    <ul>
-    <%= for owner <- @link.owners do %>
-    	<li><%= owner.netid %></li>
-    <% end %>
-	</ul>
-  </li>
-
-</ul>
-
-<span><%= link "Edit", to: link_path(@conn, :edit, @link) %></span>
-<span><%= link "Back", to: link_path(@conn, :index) %></span>
+      <div class="meta">
+        This link goes to <%= link @link.url, to: @link.url, rel: "nofollow" %>
+        and is owned by <%= list_owners @link %>. It was created
+        <%= Timex.format! @link.inserted_at, "%b %-d, %Y at %-H:%M %P", :strftime %>,
+        which was
+        <%= Timex.format! @link.inserted_at, "{relative}", :relative %>, and
+        last modified
+        <%= Timex.format! @link.updated_at, "%b %-d, %Y at %-H:%M %P", :strftime %>,
+        which was
+        <%= Timex.format! @link.inserted_at, "{relative}", :relative %>.
+      </div>
+    </div>
+  </div>
+</div>

@@ -147,6 +147,10 @@ defmodule Pton.Redirection do
   @doc """
   Utility function, returns whether a user owns the link.
   """
+  def is_owner?(nil, _link) do
+    false
+  end
+
   def is_owner?(%User{} = user, %Link{} = link) do
     not is_nil(user)
     and not is_nil(link)

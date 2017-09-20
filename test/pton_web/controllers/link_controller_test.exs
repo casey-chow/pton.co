@@ -39,8 +39,7 @@ defmodule PtonWeb.LinkControllerTest do
       assert %{id: id} = redirected_params(conn)
       assert redirected_to(conn) == link_path(conn, :show, id)
 
-
-      conn = conn |> get(link_path(conn, :show, id))
+      conn = get conn, link_path(conn, :show, id)
       assert html_response(conn, 200) =~ "Show Link"
     end
 
@@ -83,6 +82,28 @@ defmodule PtonWeb.LinkControllerTest do
       |> post(link_path(conn, :create), link: @invalid_attrs)
 
       assert html_response(conn, 200) =~ "New Link"
+    end
+  end
+
+  describe "show link" do
+    setup [:create_link_with_owner]
+
+    test "shows edit button if user owns link", %{conn: conn, user: user, link: link} do
+      conn = conn
+      |> assign(:user, user)
+      |> get(link_path(conn, :show, link))
+
+      assert html_response(conn, 200) =~ "Edit Link"
+    end
+
+    test "hides edit button if user does not own link", %{conn: conn, link: link} do
+      user = insert(:user)
+
+      conn = conn
+      |> assign(:user, user)
+      |> get(link_path(conn, :show, link))
+
+      assert not(html_response(conn, 200) =~ "Edit Link")
     end
   end
 

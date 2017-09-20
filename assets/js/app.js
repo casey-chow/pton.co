@@ -19,3 +19,8 @@ import "phoenix_html"
 // paths "./socket" or full ones "web/static/js/socket".
 
 // import socket from "./socket"
+
+// https://stackoverflow.com/a/3150370
+$('.pton-show-slug').on("click", function () {
+   $(this).select();
+});

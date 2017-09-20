@@ -10,6 +10,10 @@ body {
   padding-top: 70px;
 }
 
+.btn {
+  transition: background 0.2s ease-in-out, outline 0.3s ease-in-out;
+}
+
 .navbar-nav > li > a {
   transition: background 0.2s ease-in-out;
 }
@@ -46,7 +50,9 @@ body {
     }
   }
   .navbar-brand img {
-    height: 1em;
+    height: 20px;
+    float: left;
+    margin-right: 15px;
   }
 }
 
@@ -75,3 +81,36 @@ body {
   }
 }
 
+.pton-show {
+  .inner {
+    width: 100%;
+  }
+
+  .pton-show-slug {
+    background-color: $pton-white;
+    font-size: 48px;
+    height: 80px;
+    text-align: center;
+    width: 100%;
+  }
+
+  .toolbar {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 56px;
+
+    .btn {
+      line-height: .75;
+    }
+  }
+
+  .meta {
+    @include center-block();
+
+    font-size: 18px;
+    line-height: 2;
+    margin-top: 48px;
+    max-width: 600px;
+    text-align: center;
+  }
+}

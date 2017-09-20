@@ -8,15 +8,15 @@
     </button>
     <a class="navbar-brand" href="/">
       <img src="/images/logo.svg" alt="TigerLinks Logo">
+      <%= if not(Map.has_key?(@conn.assigns, :hide_site_name) and @conn.assigns[:hide_site_name]) do %>
+        TigerLinks
+      <% end %>
     </a>
   </div>
 
   <div class="collapse navbar-collapse" id="pton-navbar-collapse-1">
-    <ul class="nav navbar-nav">
-      <li><%= link "Home", to: "/" %></li>
-      <li><%= link "All Links", to: link_path(@conn, :index) %></li>
-    </ul>
     <ul class="nav navbar-nav navbar-right">
+      <li><%= link "All Links", to: link_path(@conn, :index) %></li>
       <li class="dropdown">
         <%= if @conn.assigns[:user] do %>
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= @conn.assigns.user.netid %><span class="caret"></span></a>
