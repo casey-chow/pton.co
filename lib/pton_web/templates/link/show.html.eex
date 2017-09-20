@@ -16,7 +16,7 @@
       </div>
 
       <div class="meta">
-        This link goes to <%= link @link.url, to: @link.url, rel: "nofollow" %>
+        This link goes to <%= link @link.url, to: @link.url, rel: "nofollow", class: "target" %>
         and is owned by <%= list_owners @link %>. It was created
         <%= Timex.format! @link.inserted_at, "%b %-d, %Y at %-H:%M %P", :strftime %>,
         which was

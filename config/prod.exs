@@ -15,7 +15,7 @@ use Mix.Config
 # which you typically run after static files are built.
 config :pton, PtonWeb.Endpoint,
   load_from_system_env: true,
-  url: [host: "pton-co.herokuapp.com", port: 80],
+  url: [host: "pton.co", port: 80],
   cache_static_manifest: "priv/static/cache_manifest.json",
   secret_key_base: Map.fetch!(System.get_env(), "SECRET_KEY_BASE")
 

@@ -70,9 +70,13 @@ body {
   }
 
   .pton-title {
-    font-size: 96px;
+    font-size: 20vw;
     margin-bottom: 56px;
     text-align: center;
+
+    @media (min-width: $screen-xs-min) {
+      font-size: 96px;
+    }
   }
 
   .form-group {
@@ -81,7 +85,9 @@ body {
 
   .slug-form-group {
     @include center-block();
-    width: 50%;
+    @media (min-width: $screen-xs-min) {
+      width: 50%;
+    }
   }
 
   .submit-form-group .btn {
@@ -104,11 +110,13 @@ body {
 
   .toolbar {
     display: flex;
+    flex-flow: wrap;
     justify-content: space-evenly;
     margin-top: 56px;
 
     .btn {
       line-height: .75;
+      margin-bottom: 1em;
     }
   }
 
@@ -117,9 +125,13 @@ body {
 
     font-size: 18px;
     line-height: 2;
-    margin-top: 48px;
+    margin-top: 24px;
     max-width: 600px;
     text-align: center;
+
+    .target {
+      word-wrap: break-word;
+    }
   }
 }
 
@@ -172,6 +184,9 @@ body {
 
   .link-slug {
     margin-top: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 
     a:hover {
       text-decoration: none;
