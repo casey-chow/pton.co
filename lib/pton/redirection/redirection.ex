@@ -39,6 +39,20 @@ defmodule Pton.Redirection do
   end
 
   @doc """
+  Returns the number of links the user owns.
+
+  ## Examples
+
+      iex> count_user_links(user)
+      3
+
+  """
+  def count_user_links(%User{} = user) do
+    Repo.aggregate(Ecto.assoc(user, :links), :count, :id)
+  end
+
+
+  @doc """
   Gets a single link.
 
   Raises `Ecto.NoResultsError` if the Link does not exist.
@@ -91,6 +105,10 @@ defmodule Pton.Redirection do
       Map.put(attrs, "slug", Random.string(5))
     else
       attrs
+    end
+
+    if count_user_links(user) >= Application.fetch_env!(:pton, :max_lifetime_links) do
+      raise Pton.QuotaExceededError
     end
 
     maybe_link = %Link{}

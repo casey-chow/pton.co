@@ -7,7 +7,8 @@ use Mix.Config
 
 # General application configuration
 config :pton,
-  ecto_repos: [Pton.Repo]
+  ecto_repos: [Pton.Repo],
+  max_lifetime_links: 150
 
 # Configures the endpoint
 config :pton, PtonWeb.Endpoint,

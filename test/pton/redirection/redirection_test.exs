@@ -31,6 +31,14 @@ defmodule Pton.RedirectionTest do
       assert Enum.fetch!(links, 0).id == link.id
     end
 
+    test "user_links/1 returns the number of links owned by user" do
+      user = insert(:user)
+      _links = insert_list(5, :link, owners: [user])
+      _other_link = insert(:link)
+
+      assert Redirection.count_user_links(user) == 5
+    end
+
     test "get_link!/1 returns the link with given id" do
       link = insert(:link)
       retrieved_link = Redirection.get_link!(link.id) |> Repo.preload(:owners)
@@ -51,6 +59,12 @@ defmodule Pton.RedirectionTest do
     test "create_link/2 with duplicate data returns error changeset", %{user: user} do
       assert {:ok, %Link{}} = Redirection.create_link(user, @valid_attrs)
       assert {:error, %Ecto.Changeset{}} = Redirection.create_link(user, @valid_attrs)
+    end
+
+    test "create_link/2 with a user who has reached their quota returns an error changeset", %{user: user} do
+      insert_list(Application.fetch_env!(:pton, :max_lifetime_links), :link, owners: [user])
+
+      assert_raise Pton.QuotaExceededError, fn -> Redirection.create_link(user, @valid_attrs) end
     end
 
     test "update_link/2 with valid data updates the link" do
