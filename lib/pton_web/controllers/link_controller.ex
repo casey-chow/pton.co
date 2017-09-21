@@ -12,6 +12,11 @@ defmodule PtonWeb.LinkController do
     render(conn, "index.html", links: links)
   end
 
+  def mine(conn, _params) do
+    links = Redirection.user_links(conn.assigns.user)
+    render(conn, "mine.html", links: links)
+  end
+
   def new(conn, _params) do
     changeset = Redirection.change_link(%Link{})
     conn

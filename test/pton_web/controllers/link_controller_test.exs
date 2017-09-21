@@ -19,6 +19,21 @@ defmodule PtonWeb.LinkControllerTest do
     end
   end
 
+  describe "my links" do
+    setup [:create_link_with_owner]
+
+    test "lists only links owned by the current user", %{conn: conn, link: link, user: user} do
+      other_link = insert(:link)
+      conn = conn
+      |> assign(:user, user)
+      |> get(link_path(conn, :mine))
+
+      assert html_response(conn, 200) =~ "My Links"
+      assert html_response(conn, 200) =~ link.slug
+      assert not(html_response(conn, 200) =~ other_link.slug)
+    end
+  end
+
   describe "new link" do
     setup [:create_user]
 

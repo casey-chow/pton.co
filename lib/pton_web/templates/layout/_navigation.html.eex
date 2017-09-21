@@ -21,7 +21,7 @@
         <%= if @conn.assigns[:user] do %>
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= @conn.assigns.user.netid %><span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><%= link "My Links", to: "#" %></li>
+          <li><%= link "My Links", to: link_path(@conn, :mine) %></li>
           <li><%= link "Sign out", to: auth_path(@conn, :delete) %></li>
         </ul>
         <% else %>

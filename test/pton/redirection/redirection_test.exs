@@ -20,6 +20,17 @@ defmodule Pton.RedirectionTest do
       assert Enum.fetch!(links, 0).id == link.id
     end
 
+    test "user_links/1 returns only links owned by user" do
+      user = insert(:user)
+      link = insert(:link, owners: [user])
+      _other_link = insert(:link)
+
+      links = Redirection.user_links(user)
+
+      assert length(links) == 1
+      assert Enum.fetch!(links, 0).id == link.id
+    end
+
     test "get_link!/1 returns the link with given id" do
       link = insert(:link)
       retrieved_link = Redirection.get_link!(link.id) |> Repo.preload(:owners)

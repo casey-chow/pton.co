@@ -25,6 +25,20 @@ defmodule Pton.Redirection do
   end
 
   @doc """
+  Returns the list of links that the user owns.
+
+  ## Examples
+
+      iex> list_links(user)
+      [%Link{}, ...]
+
+  """
+  def user_links(%User{} = user) do
+    Repo.all(Ecto.assoc(user, :links))
+    |> Repo.preload(:owners)
+  end
+
+  @doc """
   Gets a single link.
 
   Raises `Ecto.NoResultsError` if the Link does not exist.

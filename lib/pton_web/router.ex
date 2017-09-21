@@ -26,6 +26,7 @@ defmodule PtonWeb.Router do
       get "/kitchen-sink", PageController, :kitchen_sink
     end
 
+    get "/links/mine", LinkController, :mine
     resources "/links", LinkController
     get "/:slug", LinkController, :follow
   end
