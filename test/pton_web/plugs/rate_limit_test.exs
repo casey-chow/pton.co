@@ -12,9 +12,8 @@ defmodule PtonWeb.Plugs.RateLimitTest do
     end
 
     test "blocks requests if exceeds limits", %{conn: conn} do
-      conn = conn
-      |> RateLimit.rate_limit(max_requests: 1, interval_seconds: 10000)
-      |> RateLimit.rate_limit(max_requests: 1, interval_seconds: 10000)
+      conn |> RateLimit.rate_limit(max_requests: 1, interval_seconds: 10000)
+      conn = conn |> RateLimit.rate_limit(max_requests: 1, interval_seconds: 10000)
 
       assert conn.status == 429
     end
@@ -22,9 +21,11 @@ defmodule PtonWeb.Plugs.RateLimitTest do
     test "recognizes and buckets off of user if logged in", %{conn: conn} do
       user = build(:user)
 
-      conn = conn
+      conn
       |> assign(:user, user)
       |> RateLimit.rate_limit_authentication(max_requests: 1, interval_seconds: 10000)
+
+      conn = conn
       |> assign(:user, user)
       |> RateLimit.rate_limit_authentication(max_requests: 1, interval_seconds: 10000)
 
