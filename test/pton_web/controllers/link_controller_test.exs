@@ -123,6 +123,22 @@ defmodule PtonWeb.LinkControllerTest do
 
       assert not(html_response(conn, 200) =~ "Edit Link")
     end
+
+    test "shows owner if user is logged in", %{conn: conn, link: link} do
+      user = insert(:user)
+
+      conn = conn
+      |> assign(:user, user)
+      |> get(link_path(conn, :show, link))
+
+      assert html_response(conn, 200) =~ user.netid
+    end
+
+    test "hides owner if user is not logged in", %{conn: conn, link: link, user: user} do
+      conn = conn |> get(link_path(conn, :show, link))
+
+      assert not(html_response(conn, 200) =~ user.netid)
+    end
   end
 
   describe "edit link" do

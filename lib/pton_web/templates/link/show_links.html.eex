@@ -18,8 +18,10 @@
         </button>
         <ul class="dropdown-menu">
           <li><%= link "Follow", to: link.url %></li>
-          <li><%= link "Edit", to: link_path(@conn, :edit, link) %></li>
-          <li><%= link "Delete", to: link_path(@conn, :delete, link), method: :delete, data: [confirm: "Are you sure?"] %></li>
+          <%= if is_owner? @conn.assigns.user, link do %>
+            <li><%= link "Edit", to: link_path(@conn, :edit, link) %></li>
+            <li><%= link "Delete", to: link_path(@conn, :delete, link), method: :delete, data: [confirm: "Are you sure?"] %></li>
+          <% end %>
         </ul>
       </div>
     </div>
