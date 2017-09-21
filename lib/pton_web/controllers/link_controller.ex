@@ -1,11 +1,14 @@
 defmodule PtonWeb.LinkController do
   use PtonWeb, :controller
   import PtonWeb.Plugs.RateLimit
+  import Application, only: [ fetch_env!: 2 ]
 
   plug :authenticate when action in [:create, :edit, :update, :delete]
   plug :check_owner when action in [:edit, :update, :delete]
-  plug :rate_limit_authentication, %{max_requests: 5, interval_seconds: 30} \
-    when action in [:create, :update, :delete]
+  plug :rate_limit_authentication, [
+    max_requests:     fetch_env!(:pton, :rate_limit_max_requests),
+    interval_seconds: fetch_env!(:pton, :rate_limit_interval_seconds)
+  ] when action in [:create, :update, :delete]
 
   alias Pton.Redirection
   alias Pton.Redirection.Link

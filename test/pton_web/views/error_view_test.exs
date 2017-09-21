@@ -9,6 +9,12 @@ defmodule PtonWeb.ErrorViewTest do
            "Page not found"
   end
 
+  test "renders 429.html" do
+    assert render_to_string(PtonWeb.ErrorView, "429.html", []) ==
+           "Too many requests"
+  end
+
+
   test "render 500.html" do
     assert render_to_string(PtonWeb.ErrorView, "500.html", []) ==
            "Internal server error"

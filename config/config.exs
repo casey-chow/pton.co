@@ -8,7 +8,9 @@ use Mix.Config
 # General application configuration
 config :pton,
   ecto_repos: [Pton.Repo],
-  max_lifetime_links: 150
+  max_lifetime_links: 150,
+  rate_limit_max_requests: 5,
+  rate_limit_interval_seconds: 30
 
 # Configures the endpoint
 config :pton, PtonWeb.Endpoint,
