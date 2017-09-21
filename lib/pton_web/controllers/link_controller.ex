@@ -4,7 +4,7 @@ defmodule PtonWeb.LinkController do
 
   plug :authenticate when action in [:create, :edit, :update, :delete]
   plug :check_owner when action in [:edit, :update, :delete]
-  plug :rate_limit_authentication, %{max_requests: 5, interval_seconds: 60} \
+  plug :rate_limit_authentication, %{max_requests: 5, interval_seconds: 30} \
     when action in [:create, :update, :delete]
 
   alias Pton.Redirection
