@@ -26,6 +26,7 @@ defmodule Pton.Mixfile do
         :logger,
         :runtime_tools,
         :timex,
+        :ex_rated,
       ]
     ]
   end
@@ -56,6 +57,7 @@ defmodule Pton.Mixfile do
       {:inch_ex, only: :docs},
       {:excoveralls, "~> 0.5.7", only: :test},
       {:timex, "~> 3.1"},
+      {:ex_rated, "~> 1.2"},
     ]
   end
 
