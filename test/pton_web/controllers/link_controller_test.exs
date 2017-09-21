@@ -44,6 +44,13 @@ defmodule PtonWeb.LinkControllerTest do
 
       assert html_response(conn, 200) =~ "New Link"
     end
+
+    test "renders login button if user not logged in", %{conn: conn} do
+      conn = conn
+      |> get(link_path(conn, :new))
+
+      assert not(html_response(conn, 200) =~ "enter a url")
+    end
   end
 
   describe "create link" do

@@ -4,28 +4,34 @@
     <div class="inner">
       <h1 class="pton-title">TigerLinks</h1>
 
-      <%= form_for @changeset, link_path(@conn, :create), fn f -> %>
-        <div class="form-group url-form-group <%= error_class(f, :url) %>">
-          <%# https://justmarkup.com/log/2012/12/input-url/ %>
-          <%# https://github.com/angular/angular.js/commit/ffb6b2fb56d9ffcb051284965dd538629ea9687a %>
-          <%= url_input f, :url, class: "form-control input-lg pton-url-form-control",
-              placeholder: "enter a url to shorten...",
-              pattern: "^[A-Za-z][A-Za-z\d.+-]*:\/*(?:\w+(?::\w+)?@)?[^\s/]+(?::\d+)?(?:\/[\w#!:.?+=&%@\-/]*)?$" %>
-          <%= error_tag f, :url %>
-        </div>
-
-        <div class="form-group slug-form-group <%= error_class(f, :slug) %>">
-          <div class="input-group">
-            <span class="input-group-addon" id="link-slug">pton.co/</span>
-            <%= text_input f, :slug, class: "form-control", id: "link-slug",
-                placeholder: "name-your-link (optional)" %>
+      <%= if @conn.assigns[:user] do %>
+        <%= form_for @changeset, link_path(@conn, :create), fn f -> %>
+          <div class="form-group url-form-group <%= error_class(f, :url) %>">
+            <%# https://justmarkup.com/log/2012/12/input-url/ %>
+            <%# https://github.com/angular/angular.js/commit/ffb6b2fb56d9ffcb051284965dd538629ea9687a %>
+            <%= url_input f, :url, class: "form-control input-lg pton-url-form-control",
+                placeholder: "enter a url to shorten...",
+                pattern: "^[A-Za-z][A-Za-z\d.+-]*:\/*(?:\w+(?::\w+)?@)?[^\s/]+(?::\d+)?(?:\/[\w#!:.?+=&%@\-/]*)?$" %>
+            <%= error_tag f, :url %>
           </div>
-          <%= error_tag f, :slug %>
-        </div>
+
+          <div class="form-group slug-form-group <%= error_class(f, :slug) %>">
+            <div class="input-group">
+              <span class="input-group-addon" id="link-slug">pton.co/</span>
+              <%= text_input f, :slug, class: "form-control", id: "link-slug",
+                  placeholder: "name-your-link (optional)" %>
+            </div>
+            <%= error_tag f, :slug %>
+          </div>
 
 
-        <div class="form-group submit-form-group">
-          <%= submit "Create Link", class: "btn btn-primary" %>
+          <div class="form-group submit-form-group">
+            <%= submit "Create Link", class: "btn btn-primary" %>
+          </div>
+        <% end %>
+      <% else %>
+        <div class="text-center">
+          <%= link "Log In To Shorten URLs", to: auth_path(@conn, :request, "cas"), class: "btn btn-lg btn-default login-button" %>
         </div>
       <% end %>
     </div>
