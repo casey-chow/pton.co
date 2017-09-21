@@ -79,7 +79,8 @@ defmodule PtonWeb.LinkController do
     |> redirect(to: link_path(conn, :index))
   end
 
-  def authenticate(conn, _) do
+  # Passes along conn if user exists, otherwise, redirects to login screen.
+  defp authenticate(conn, _) do
     if conn.assigns.user do
       conn
     else
@@ -90,7 +91,9 @@ defmodule PtonWeb.LinkController do
     end
   end
 
-  def check_owner(conn, _) do
+  # Verifies that the user is the owner of the current link. If not, rejects
+  # the request with a 403.
+  defp check_owner(conn, _params) do
     id = conn.params["id"]
     link = Redirection.get_link! id
 
@@ -98,7 +101,7 @@ defmodule PtonWeb.LinkController do
       conn
     else
       conn
-      |> put_status(403)
+      |> put_status(:forbidden)
       |> put_flash(:error, "You are not authorized to modify this link.")
       |> render("show.html", link: link)
       |> halt()
