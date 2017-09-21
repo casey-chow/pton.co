@@ -16,7 +16,7 @@
       </div>
 
       <div class="meta">
-        This link goes to <%= link @link.url, to: @link.url, rel: "nofollow", class: "target" %><%= if @conn.assigns.user do %>and is owned by <%= list_owners @link %><% end %>. It was created <%= Timex.format! @link.inserted_at, "%b %-d, %Y at %-H:%M %P", :strftime %>, which was <%= Timex.format! @link.inserted_at, "{relative}", :relative %>, and last modified <%= Timex.format! @link.updated_at, "%b %-d, %Y at %-H:%M %P", :strftime %>, which was <%= Timex.format! @link.inserted_at, "{relative}", :relative %>.
+        This link goes to <%= link @link.url, to: @link.url, rel: "nofollow", class: "target" %><%= if @conn.assigns.user do %> and is owned by <%= list_owners @link %><% end %>. It was created <%= Timex.format! @link.inserted_at, "%b %-d, %Y at %-H:%M %P", :strftime %>, which was <%= Timex.format! @link.inserted_at, "{relative}", :relative %>, and last modified <%= Timex.format! @link.updated_at, "%b %-d, %Y at %-H:%M %P", :strftime %>, which was <%= Timex.format! @link.inserted_at, "{relative}", :relative %>.
       </div>
     </div>
   </div>
