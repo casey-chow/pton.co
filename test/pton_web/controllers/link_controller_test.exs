@@ -108,6 +108,14 @@ defmodule PtonWeb.LinkControllerTest do
 
       assert html_response(conn, 200) =~ "New Link"
     end
+
+    test "validates urls on creation", %{conn: conn, user: user} do
+      conn = conn
+      |> assign(:user, user)
+      |> post(link_path(conn, :create), link: %{@create_attrs | url: "http://'; DROP TABLE links;.com"})
+
+      assert html_response(conn, 200) =~ "New Link"
+    end
   end
 
   describe "show link" do
