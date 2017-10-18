@@ -36,12 +36,13 @@ defmodule Pton.Redirection.Link do
     end
   end
 
-  # http://blog.danielberkompas.com/elixir/2015/05/20/useful-ecto-validators.html
+  @valid_url ~r"^[A-Za-z][A-Za-z\d.+-]*:\/*(?:\w+(?::\w+)?@)?[^\s/]+(?::\d+)?(?:\/[\w#!:.?+=&%@\-/]*)?$"
   def validate_url(changeset, field, options \\ []) do
     validate_change changeset, field, fn _, url ->
-      case url |> String.to_charlist |> :http_uri.parse do
-        {:ok, _} -> []
-        {:error, msg} -> [{field, options[:message] || "invalid url: #{inspect msg}"}]
+      if Regex.match?(@valid_url, url) do
+        []
+      else
+        [{field, options[:message] || "invalid url"}]
       end
     end
   end
