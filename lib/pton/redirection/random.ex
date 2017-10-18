@@ -1,7 +1,9 @@
 defmodule Pton.Redirection.Random do
-  # Generates a random alphanumeric string with the given length.
-  #
-  # https://github.com/gutschilla/elixir-helper-random/blob/master/lib/random.ex
+  @moduledoc """
+  Module that generates a random alphanumeric string with the given length.
+  https://github.com/gutschilla/elixir-helper-random/blob/master/lib/random.ex
+  """
+
   def string(length) do
     alphabet =
       "abcdefghijklmnopqrstuvwxyz"

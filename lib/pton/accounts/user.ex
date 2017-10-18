@@ -1,4 +1,8 @@
 defmodule Pton.Accounts.User do
+  @moduledoc """
+  Contains data layer for users schema.
+  """
+
   use Ecto.Schema
   import Ecto.Changeset
 

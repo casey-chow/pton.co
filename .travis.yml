@@ -6,6 +6,7 @@ cache:
     - _build
     - deps
 script:
+  - MIX_ENV=test mix credo
   - MIX_ENV=test mix do compile, coveralls.json
 after_success:
   - bash <(curl -s https://codecov.io/bash)

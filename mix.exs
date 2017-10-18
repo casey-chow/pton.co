@@ -58,6 +58,7 @@ defmodule Pton.Mixfile do
       {:excoveralls, "~> 0.5.7", only: :test},
       {:timex, "~> 3.1"},
       {:ex_rated, "~> 1.2"},
+      {:credo, "~> 0.8", only: [:dev, :test], runtime: false},
     ]
   end
 

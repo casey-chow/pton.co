@@ -1,6 +1,9 @@
-# http://blog.danielberkompas.com/elixir/2015/06/16/rate-limiting-a-phoenix-api.html
 defmodule PtonWeb.Plugs.RateLimit do
-  import Phoenix.Controller, only: [ render: 3 ]
+  @moduledoc """
+  This plug enables rate limiting of the backend API, to prevent abuse.
+  http://blog.danielberkompas.com/elixir/2015/06/16/rate-limiting-a-phoenix-api.html
+  """
+  import Phoenix.Controller, only: [render: 3]
   import Plug.Conn
 
   def rate_limit(conn, options \\ []) do

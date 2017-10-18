@@ -1,3 +1,4 @@
+# credo:disable-for-next-line
 defmodule Pton.Application do
   use Application
 

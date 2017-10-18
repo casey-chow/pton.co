@@ -101,7 +101,8 @@ defmodule Pton.Redirection do
 
   """
   def create_link(user, attrs \\ %{}) do
-    attrs = if is_nil(Map.get(attrs, "slug")) or String.trim(Map.get(attrs, "slug")) == "" do
+    attrs = if is_nil(Map.get(attrs, "slug"))
+               or String.trim(Map.get(attrs, "slug")) == "" do
       Map.put(attrs, "slug", Random.string(5))
     else
       attrs

@@ -1,7 +1,7 @@
 defmodule PtonWeb.LinkController do
   use PtonWeb, :controller
   import PtonWeb.Plugs.RateLimit
-  import Application, only: [ fetch_env!: 2 ]
+  import Application, only: [fetch_env!: 2]
 
   plug :authenticate when action in [:mine, :create, :edit, :update, :delete]
   plug :check_owner when action in [:edit, :update, :delete]

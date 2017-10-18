@@ -1,7 +1,7 @@
 defmodule PtonWeb.LinkView do
   use PtonWeb, :view
 
-  import Pton.Redirection, only: [ is_owner?: 2 ]
+  import Pton.Redirection, only: [is_owner?: 2]
 
   def list_owners(link) do
     link.owners

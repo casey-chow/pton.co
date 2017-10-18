@@ -1,4 +1,7 @@
 defmodule Pton.Redirection.Link do
+  @moduledoc """
+  Data layer for links and redirection,  including all valdiation code.
+  """
   use Ecto.Schema
   import Ecto.Changeset
 
