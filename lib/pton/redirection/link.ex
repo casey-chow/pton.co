@@ -10,6 +10,7 @@ defmodule Pton.Redirection.Link do
   schema "links" do
     field :slug, :string
     field :url, :string
+    field :is_safe, :boolean
 
     timestamps()
 
