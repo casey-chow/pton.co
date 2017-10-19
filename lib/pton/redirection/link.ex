@@ -40,7 +40,7 @@ defmodule Pton.Redirection.Link do
   end
 
   @valid_url ~r"^[A-Za-z][A-Za-z\d.+-]*:\/*(?:\w+(?::\w+)?@)?[^\s/]+(?::\d+)?(?:\/[\w#!:.?+=&%@\-/]*)?$"
-  def validate_url(changeset, field, options \\ []) do
+  defp validate_url(changeset, field, options \\ []) do
     validate_change changeset, field, fn _, url ->
       if Regex.match?(@valid_url, url) do
         []
