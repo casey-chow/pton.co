@@ -1,0 +1,32 @@
+[
+  {
+    "request": {
+      "body": "{\"threatInfo\":{\"threatTypes\":[\"MALWARE\",\"POTENTIALLY_HARMFUL_APPLICATION\",\"SOCIAL_ENGINEERING\"],\"threatEntryTypes\":[\"URL\"],\"threatEntries\":[{\"url\":\"http://google.com/\"}],\"platformTypes\":[\"ANY_PLATFORM\"]},\"client\":{\"clientVersion\":\"0.0.1\",\"clientId\":\"pton-co\"}}",
+      "headers": {
+        "Accept": "application/json"
+      },
+      "method": "post",
+      "options": [],
+      "request_body": "",
+      "url": "https://safebrowsing.googleapis.com/v4/threatMatches:find?key=GOOGLE_API_KEY"
+    },
+    "response": {
+      "body": "{\"matches\":[{\"threatType\":\"MALWARE\",\"platformType\":\"WINDOWS\",\"threatEntryType\":\"URL\",\"threat\":{\"url\":\"http:\/\/www.urltocheck1.org\/\"},\"threatEntryMetadata\":{\"entries\":[{\"key\":\"malware_threat_type\",\"value\":\"landing\"}]},\"cacheDuration\":\"300.000s\"}]}",
+      "headers": {
+        "Content-Type": "application/json; charset=UTF-8",
+        "Date": "Thu, 19 Oct 2017 04:11:41 GMT",
+        "Server": "ESF",
+        "Cache-Control": "private",
+        "X-XSS-Protection": "1; mode=block",
+        "X-Frame-Options": "SAMEORIGIN",
+        "X-Content-Type-Options": "nosniff",
+        "Alt-Svc": "quic=\":443\"; ma=2592000; v=\"39,38,37,35\"",
+        "Accept-Ranges": "none",
+        "Vary": "Accept-Encoding",
+        "Transfer-Encoding": "chunked"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

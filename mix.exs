@@ -62,6 +62,7 @@ defmodule Pton.Mixfile do
       {:credo, "~> 0.8", only: [:dev, :test], runtime: false},
       {:httpoison, "~> 0.9"},
       {:poison, "~> 3.1"},
+      {:exvcr, "~> 0.8", only: [:dev, :test]},
     ]
   end
 
