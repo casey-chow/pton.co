@@ -20,10 +20,13 @@ defmodule Pton.Redirection.Link do
 
   @doc false
   def changeset(%Link{} = link, attrs) do
+    host = Application.get_env(:pton, PtonWeb.Endpoint)[:url][:host]
+
     link
     |> cast(attrs, [:slug, :url])
     |> validate_required([:url])
     |> validate_url(:url, message: "invalid url")
+    |> validate_not_host(:url, host: host, message: "url cannot be from this site")
     |> validate_slug_format
     |> unique_constraint(:slug)
   end
@@ -46,6 +49,17 @@ defmodule Pton.Redirection.Link do
         []
       else
         [{field, options[:message] || "invalid url"}]
+      end
+    end
+  end
+
+  defp validate_not_host(changeset, field, options \\ []) do
+    validate_change changeset, field, fn _, url ->
+      url_parsed = URI.parse(url)
+      if url_parsed.host != options[:host] do
+        []
+      else
+        [{field, options[:message] || "invalid host"}]
       end
     end
   end

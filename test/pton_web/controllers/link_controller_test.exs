@@ -116,6 +116,16 @@ defmodule PtonWeb.LinkControllerTest do
 
       assert html_response(conn, 200) =~ "New Link"
     end
+
+    test "prevents creation of links to self", %{conn: conn, user: user} do
+      host = Application.get_env(:pton, PtonWeb.Endpoint)[:url][:host]
+
+      conn = conn
+      |> assign(:user, user)
+      |> post(link_path(conn, :create), link: %{@create_attrs | url: "https://#{host}/asdf"})
+
+      assert html_response(conn, 200) =~ "New Link"
+    end
   end
 
   describe "show link" do
