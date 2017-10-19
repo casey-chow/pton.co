@@ -8,6 +8,7 @@ This assumes you already have [Elixir](https://elixir-lang.org/install.html) ins
 and a default Postgres setup.
 
 ```sh
+cp config/dev.secret.example.exs config/dev.secret.exs
 mix deps.get
 mix ecto.create
 mix ecto.migrate

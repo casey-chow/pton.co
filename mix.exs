@@ -27,6 +27,7 @@ defmodule Pton.Mixfile do
         :runtime_tools,
         :timex,
         :ex_rated,
+        :httpoison,
       ]
     ]
   end
@@ -59,6 +60,8 @@ defmodule Pton.Mixfile do
       {:timex, "~> 3.1"},
       {:ex_rated, "~> 1.2"},
       {:credo, "~> 0.8", only: [:dev, :test], runtime: false},
+      {:httpoison, "~> 0.9"},
+      {:poison, "~> 3.1"},
     ]
   end
 

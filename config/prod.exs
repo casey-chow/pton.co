@@ -17,7 +17,8 @@ config :pton, PtonWeb.Endpoint,
   load_from_system_env: true,
   url: [host: "pton.co", port: 80],
   cache_static_manifest: "priv/static/cache_manifest.json",
-  secret_key_base: Map.fetch!(System.get_env(), "SECRET_KEY_BASE")
+  secret_key_base: Map.fetch!(System.get_env(), "SECRET_KEY_BASE"),
+  google_api_key: Map.fetch!(System.get_env(), "GOOGLE_API_KEY")
 
 # Configure your database
 config :pton, Pton.Repo,

@@ -10,7 +10,8 @@ config :pton,
   ecto_repos: [Pton.Repo],
   max_lifetime_links: 150,
   rate_limit_max_requests: 5,
-  rate_limit_interval_seconds: 30
+  rate_limit_interval_seconds: 30,
+  google_api_key: Map.get(System.get_env(), "GOOGLE_API_KEY", "")
 
 # Configures the endpoint
 config :pton, PtonWeb.Endpoint,
