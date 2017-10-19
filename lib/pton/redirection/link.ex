@@ -10,7 +10,7 @@ defmodule Pton.Redirection.Link do
   schema "links" do
     field :slug, :string
     field :url, :string
-    field :is_safe, :boolean
+    field :is_safe, :boolean, default: true
 
     timestamps()
 
@@ -30,6 +30,15 @@ defmodule Pton.Redirection.Link do
     |> validate_not_host(:url, host: host, message: "url cannot be from this site")
     |> validate_slug_format
     |> unique_constraint(:slug)
+  end
+
+  @doc """
+  Creates a changeset specifically to update the is_safe attribute.
+  """
+  def safety_changeset(%Link{} = link, attrs) do
+    link
+    |> cast(attrs, [:is_safe])
+    |> validate_required([:is_safe])
   end
 
   defp validate_slug_format(changeset) do

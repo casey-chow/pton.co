@@ -28,6 +28,7 @@ defmodule Pton.DataCase do
 
   setup tags do
     :ok = Ecto.Adapters.SQL.Sandbox.checkout(Pton.Repo)
+    ExVCR.Config.filter_sensitive_data("key=.*", "key=GOOGLE_API_KEY")
 
     unless tags[:async] do
       Ecto.Adapters.SQL.Sandbox.mode(Pton.Repo, {:shared, self()})

@@ -10,6 +10,7 @@ defmodule Pton.Redirection do
   alias Pton.Accounts.User
   alias Pton.Redirection.Link
   alias Pton.Redirection.Random
+  alias Pton.Redirection.SafeBrowsing
 
   @doc """
   Returns the list of links.
@@ -86,6 +87,22 @@ defmodule Pton.Redirection do
   """
   def get_link_by!(clauses) do
     Repo.get_by!(Link, clauses) |> Repo.preload(:owners)
+  end
+
+  @doc """
+  Checks a link to see if it is safe, and records in the database the outcome
+  of the check. If the link does not exist, raises `Ecto.NoResultsError`.
+  Returns whether the url is safe.
+  """
+  def check_link!(id) do
+    link = Repo.get!(Link, id)
+    is_safe = SafeBrowsing.is_safe? link.url
+
+    {:ok, _} = link
+    |> Link.safety_changeset(%{is_safe: is_safe})
+    |> Repo.update()
+
+    is_safe
   end
 
   @doc """

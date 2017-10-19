@@ -15,6 +15,7 @@ defmodule Pton.Factory do
       slug: sequence("slug"),
       url: sequence(:url, &"http://batcave.com/#{&1}"),
       owners: [build(:user)],
+      is_safe: true,
     }
   end
 end

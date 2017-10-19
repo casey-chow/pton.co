@@ -2,13 +2,14 @@ defmodule Pton.RedirectionTest do
   use Pton.DataCase
 
   alias Pton.Redirection
+  use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
 
   describe "links" do
     alias Pton.Redirection.Link
 
     @valid_attrs %{"slug" => "some_slug", "url" => "http://google.com/"}
-    @update_attrs %{"slug" => "some_updated_slug", "url" => "http://yahoo.com/"}
-    @invalid_attrs %{"slug" => "invalidslug!!!", "url" => "asldifhwoie"}
+    @update_attrs %{"slug" => "some_updated_slug", "url" => "http://yahoo.com/", "is_safe" => false}
+    @invalid_attrs %{"slug" => "invalidslug!!!", "url" => "asldifhwoie", "is_safe" => false}
 
     setup [:create_user]
 
@@ -46,10 +47,31 @@ defmodule Pton.RedirectionTest do
       assert retrieved_link.id == link.id
     end
 
+    test "check_link!/1 returns true and updates link state if the link is safe" do
+      use_cassette "site_is_safe" do
+        link = insert(:link, is_safe: false)
+        assert Redirection.check_link!(link.id)
+        assert Redirection.get_link!(link.id).is_safe
+      end
+    end
+
+    test "check_link!/1 returns false and updates link state if the link is not safe" do
+      use_cassette "site_is_not_safe", custom: true do
+        link = insert(:link, is_safe: true)
+        assert not Redirection.check_link!(link.id)
+        assert not Redirection.get_link!(link.id).is_safe
+      end
+    end
+
     test "create_link/2 with valid data creates a link", %{user: user} do
       assert {:ok, %Link{} = link} = Redirection.create_link(user, @valid_attrs)
       assert link.slug == "some_slug"
       assert link.url == "http://google.com/"
+    end
+
+    test "create_link/2 ignores the is_safe parameter", %{user: user} do
+      assert {:ok, %Link{} = link} = Redirection.create_link(user, Map.put(@valid_attrs, "is_safe", true))
+      assert not Map.has_key?(link, "is_safe")
     end
 
     test "create_link/2 with invalid data returns error changeset", %{user: user} do
@@ -75,13 +97,21 @@ defmodule Pton.RedirectionTest do
       assert link.url == "http://yahoo.com/"
     end
 
-    test "update_link/1 with invalid data returns error changeset" do
+    test "update_link/2 with invalid data returns error changeset" do
       link = insert(:link)
       assert {:error, %Ecto.Changeset{}} = Redirection.update_link(link, @invalid_attrs)
       new_link = Redirection.get_link!(link.id)
 
       assert new_link.slug == link.slug
       assert new_link.url == link.url
+    end
+
+    test "update_link/2 ignores the is_safe parameter", %{user: user} do
+      link = insert(:link, is_safe: true)
+      assert {:ok, link} = Redirection.update_link(link, Map.put(@valid_attrs, "is_safe", false))
+
+      new_link = Redirection.get_link!(link.id)
+      assert new_link.is_safe
     end
 
     test "delete_link/1 deletes the link" do
