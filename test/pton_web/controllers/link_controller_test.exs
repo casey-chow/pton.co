@@ -209,6 +209,14 @@ defmodule PtonWeb.LinkControllerTest do
 
       assert get_flash(conn, :error) =~ "not authorized"
     end
+
+    test "validates urls on update", %{conn: conn, link: link, user: user} do
+      conn = conn
+      |> assign(:user, user)
+      |> put(link_path(conn, :update, link), link: %{url: "http://'; DROP TABLE links;.com"})
+
+      assert html_response(conn, 200) =~ "Edit Link"
+    end
   end
 
   describe "delete link" do
