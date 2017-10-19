@@ -14,16 +14,17 @@ defmodule Pton.Redirection.SafeBrowsing do
   API. Returns false otherwise.
   """
   def is_safe?(url) do
-    HTTPoison.post!(endpoint(),
-                    body_request_for(url),
-                    [{"Accept", "application/json"}]).body
+    %{body: body} = HTTPoison.post!(endpoint(), body_request_for(url),
+                                   [{"Accept", "application/json"}])
+
+    body
     |> Poison.Parser.parse!
     |> :erlang.==(%{})
   end
 
   defp endpoint do
     api_key = Application.get_env(:pton, PtonWeb.Endpoint)[:google_api_key]
-    @endpoint<>"?key="<>api_key
+    @endpoint <> "?key=" <> api_key
   end
 
   defp body_request_for(url) do
